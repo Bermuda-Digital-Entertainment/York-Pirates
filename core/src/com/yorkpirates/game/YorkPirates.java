@@ -39,9 +39,9 @@ public class YorkPirates extends ApplicationAdapter {
  		batch.begin();
  		batch.draw(player.texture, player.x, player.y);
  		batch.end();
-		if(Gdx.input.isKeyPressed(Keys.LEFT)) player.x --;
-		if(Gdx.input.isKeyPressed(Keys.RIGHT)) player.x ++;
-		if(Gdx.input.isKeyPressed(Keys.UP)) player.y ++;
-		if(Gdx.input.isKeyPressed(Keys.DOWN)) player.y --;
+		if(Gdx.input.isKeyPressed(Keys.LEFT)) player.move_left();
+		if(Gdx.input.isKeyPressed(Keys.RIGHT)) player.move_right();
+		if(Gdx.input.isKeyPressed(Keys.UP)) player.move_up();
+		if(Gdx.input.isKeyPressed(Keys.DOWN)) player.move_down();
 	}
 }
