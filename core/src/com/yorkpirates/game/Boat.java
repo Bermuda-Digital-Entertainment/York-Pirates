@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Boat extends Rectangle {
   public Texture texture;
-  public Health Integer;
-  public Level Integer;
+  public Integer Health;
+  public Integer Level;
 
   public void move_left(){
     x--;

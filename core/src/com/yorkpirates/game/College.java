@@ -5,8 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class College extends Rectangle {
   public Texture texture;
-  public Health Integer;
-  
+  public Integer Health;
+  public Integer Level;
+
   private float x;
   private float y;
   private float width;
