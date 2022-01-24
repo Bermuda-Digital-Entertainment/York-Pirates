@@ -3,6 +3,9 @@ package com.yorkpirates.game;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.Texture;
 
+/**
+* Projectile Class. Implements a sprite with additional Properties for speed, range and damage. It can be fired by AI boat or a player
+*/
 public class Projectile extends Sprite {
   private Integer x;
   private Integer y;
@@ -11,15 +14,24 @@ public class Projectile extends Sprite {
   protected Integer range;
   protected Integer damage;
   protected Integer speed;
-  protected Boat firingShip;
+  protected Sprite firing;
 
-  public Projectile (Integer srcX, Integer srcY, Integer srcSpeedX, Integer srcSpeedY, Integer initRange, Boat ship) {
-    x=srcX;
-    y=srcY;
+  /**
+  * Projectile Class Constructor.
+  *
+  * @param srcX The source X coordinate for a projectile
+  * @param srcY The source Y coordinate for a projectile
+  * @param srcX The X speed vector for a projectile
+  * @param srcY The Y speed vector for a projectile
+  * @param initRange The number of 'ticks'
+  */
+  public Projectile (Integer srcSpeedX, Integer srcSpeedY, Integer initRange, Sprite firingObject) {
     speedX=srcSpeedX;
     speedY=srcSpeedY;
     range=initRange;
-    firingShip=ship;
+    firing=firingObject;
+    x=firingObject.getX();
+    x=firingObject.getY();
   }
 
   public void moveTick (){
