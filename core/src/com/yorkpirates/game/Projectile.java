@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 * Projectile Class. Implements a sprite with additional Properties for speed, range and damage. It can be fired by AI boat or a player
 */
 public class Projectile extends Sprite {
-  private Integer x;
-  private Integer y;
+  private Float x;
+  private Float y;
   protected Integer speedX;//Velocity vector for x
   protected Integer speedY;//Velocity vector for y
   protected Integer range;
