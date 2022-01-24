@@ -23,7 +23,9 @@ public class YorkPirates extends ApplicationAdapter {
 	@Override
 	public void create() {
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 1920, 1080);
+		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		System.out.println(Gdx.graphics.getWidth());
+		System.out.println(Gdx.graphics.getHeight());
 		batch = new SpriteBatch();
 
 		//Creates the player's boat
@@ -47,6 +49,11 @@ public class YorkPirates extends ApplicationAdapter {
 		goodricke.setPosition(700,100);
 		goodricke.setSize(64,64);
 		goodricke.texture = new Texture(Gdx.files.internal("goodricke.png"));
+	}
+
+	@Override
+	public void resize(int width, int height){
+		camera.setToOrtho(false, width, height);
 	}
 
 	@Override
