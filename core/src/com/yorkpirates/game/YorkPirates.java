@@ -10,7 +10,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.yorkpirates.game.Boat;
 import com.yorkpirates.game.College;
-
+import com.yorkpirates.game.Projectile;
 
 public class YorkPirates extends ApplicationAdapter {
 	private OrthographicCamera camera;
