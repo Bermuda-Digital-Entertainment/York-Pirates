@@ -28,10 +28,8 @@ public class YorkPirates extends ApplicationAdapter {
 
 		//Creates the player's boat
 		player = new Boat();
-		player.x = 0;
-		player.y = 0;
-		player.width = 48;
-		player.height = 48;
+		player.setPosition(0,0);
+		player.setSize(48,48);
 		player.texture = new Texture(Gdx.files.internal("boat.png"));
 
 		//Creates each college
@@ -58,18 +56,23 @@ public class YorkPirates extends ApplicationAdapter {
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
  		batch.begin();
- 		batch.draw(player.texture, player.x, player.y);
+ 		batch.draw(player.texture, player.getX(), player.getY());
 		batch.draw(halifax.texture, halifax.getX(), halifax.getY());
 		batch.draw(james.texture, james.getX(), james.getY());
 		batch.draw(goodricke.texture, goodricke.getX(), goodricke.getY());
  		batch.end();
-		player_move();
+		move();
 	}
 
-	public void player_move(){
-		if(Gdx.input.isKeyPressed(Keys.LEFT)) player.move_left();
-		if(Gdx.input.isKeyPressed(Keys.RIGHT)) player.move_right();
-		if(Gdx.input.isKeyPressed(Keys.UP)) player.move_up();
-		if(Gdx.input.isKeyPressed(Keys.DOWN)) player.move_down();
+	public void move(){
+		if(Gdx.input.isKeyPressed(Keys.A)) player.translateX(-1);
+		if(Gdx.input.isKeyPressed(Keys.D)) player.translateX(1);
+		if(Gdx.input.isKeyPressed(Keys.W)) player.translateY(1);
+		if(Gdx.input.isKeyPressed(Keys.S)) player.translateY(-1);
+
+		if(Gdx.input.isKeyPressed(Keys.LEFT)) camera.translate(-1,0);
+		if(Gdx.input.isKeyPressed(Keys.RIGHT)) camera.translate(1,0);
+		if(Gdx.input.isKeyPressed(Keys.UP)) camera.translate(0,1);
+		if(Gdx.input.isKeyPressed(Keys.DOWN)) camera.translate(0,-1);
 	}
 }
