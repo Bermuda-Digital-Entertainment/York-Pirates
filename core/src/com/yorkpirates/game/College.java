@@ -9,5 +9,5 @@ import com.badlogic.gdx.graphics.Texture;
 */
 public class College extends Sprite {
   public Texture texture;
-  public Integer Health;
+  public Integer health;
 }

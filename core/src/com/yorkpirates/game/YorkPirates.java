@@ -134,21 +134,21 @@ public class YorkPirates extends ApplicationAdapter {
 		player.texture = new Texture(Gdx.files.internal("boat.png"));
 
 		//Creates each college
-		halifax = new College();
-		halifax.setPosition(400,500);
-		halifax.setSize(64,64);
-		halifax.texture = new Texture(Gdx.files.internal("halifax.png"));
+		colleges.add(new College());
+		colleges.add(new College());
+		colleges.add(new College());
 
-		james = new College();
-		james.setPosition(300,800);
-		james.setSize(64,64);
-		james.texture = new Texture(Gdx.files.internal("james.png"));
+		colleges.get(0).setPosition(400,500);
+		colleges.get(0).setSize(64,64);
+		colleges.get(0).texture = new Texture(Gdx.files.internal("halifax.png"));
 
-		goodricke = new College();
-		goodricke.setPosition(700,100);
-		goodricke.setSize(64,64);
-		goodricke.texture = new Texture(Gdx.files.internal("goodricke.png"));
+		colleges.get(1).setPosition(300,800);
+		colleges.get(1).setSize(64,64);
+		colleges.get(1).texture = new Texture(Gdx.files.internal("goodricke.png"));
 
+		colleges.get(2).setPosition(700,100);
+		colleges.get(2).setSize(64,64);
+		colleges.get(2).texture = new Texture(Gdx.files.internal("james.png"));
 
 	}
 
@@ -166,32 +166,45 @@ public class YorkPirates extends ApplicationAdapter {
 		batch.setProjectionMatrix(camera.combined);
  		batch.begin();
  		batch.draw(player.texture, player.getX(), player.getY());
-		batch.draw(halifax.texture, halifax.getX(), halifax.getY());
-		batch.draw(james.texture, james.getX(), james.getY());
-		batch.draw(goodricke.texture, goodricke.getX(), goodricke.getY());
+		//System.out.println(colleges.size());
+		//colleges.get(1).texture;
+		for (Integer x=0; x<colleges.size(); x++) {
+			 batch.draw(colleges.get(x).texture, colleges.get(x).getX(), colleges.get(x).getY());
+		}
  		batch.end();
 		stage.draw();
 		stage.act();
-		move();
+		move(10);
 	}
 	//public void update(float deltaTime) {
 	//	(deltaTime);
 	//	ScreenUtils.clear(0, 0, 0, 1);
 	//}
-	public void move(){
+
+	public void move(Integer speed){
+
 		Boolean collision;
 
-		if(Gdx.input.isKeyPressed(Keys.A)) player.translateX(-1);
-		if(Gdx.input.isKeyPressed(Keys.D)) player.translateX(1);
-		if(Gdx.input.isKeyPressed(Keys.W)) player.translateY(1);
-		if(Gdx.input.isKeyPressed(Keys.S)) player.translateY(-1);
-		
-		collision = True;
-		if(Gdx.input.isKeyPressed(Keys.LEFT)) camera.translate(-1,0);
+		if(Gdx.input.isKeyPressed(Keys.A)) {
+			player.translateX(-speed);
+			if (player.collidesCollege(colleges)) player.translateX(speed);
+		}
+		if(Gdx.input.isKeyPressed(Keys.D)) {
+			player.translateX(speed);
+			if (player.collidesCollege(colleges)) player.translateX(-speed);
+		}
+		if(Gdx.input.isKeyPressed(Keys.W)) {
+			player.translateY(speed);
+			if (player.collidesCollege(colleges)) player.translateY(-speed);
+		}
+		if(Gdx.input.isKeyPressed(Keys.S)) {
+			player.translateY(-speed);
+			if (player.collidesCollege(colleges)) player.translateY(speed);
+		}
 
+		if(Gdx.input.isKeyPressed(Keys.LEFT)) camera.translate(-1,0);
 		if(Gdx.input.isKeyPressed(Keys.RIGHT)) camera.translate(1,0);
 		if(Gdx.input.isKeyPressed(Keys.UP)) camera.translate(0,1);
 		if(Gdx.input.isKeyPressed(Keys.DOWN)) camera.translate(0,-1);
 	}
-
 }
