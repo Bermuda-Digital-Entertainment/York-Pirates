@@ -23,6 +23,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 ;
 public class YorkPirates extends ApplicationAdapter {
 	private OrthographicCamera camera;
+	private OrthographicCamera camera2;
 	private SpriteBatch batch;
 	private Boat player;
 	private College halifax;
@@ -33,62 +34,39 @@ public class YorkPirates extends ApplicationAdapter {
 	private Image background;
 	private ScreenViewport viewport;
 
+	
 	@Override
 	public void create() {
+		//batch camera
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		//stage camera
+		camera2 = new OrthographicCamera();
+		camera2.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		System.out.println(Gdx.graphics.getWidth());
 		System.out.println(Gdx.graphics.getHeight());
+		//ui skin
 		Skin skin = new Skin(Gdx.files.internal("skin.json"));
 		batch = new SpriteBatch();
 		viewport = new ScreenViewport();
-		viewport.setCamera(camera);
+		viewport.setCamera(camera2);
 		stage = new Stage(viewport);
-		//TextButton button = new TextButton("Tap Me", skin);
-		//button.setSize(100, 50);
-		//button.setPosition(1920/2 -100, 1080/2 -50);
-		//button.addListener(new ClickListener()
-		//{
-		//	@Override
-		//	public void clicked(InputEvent event, float x, float y) {
-		//		//System.out.println("TAP ME");
-		//		stage.clear();
-		//	}
-		//});
-
-		//stage.addActor(button);
+		//table for UI background
 		Table background = new Table(skin);
 		background.setFillParent(true);
 		background.setBackground(skin.getDrawable("default-pane"));
 		background.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-		Container<Table> tableContainer = new Container<Table>();
 
-        float sw = Gdx.graphics.getWidth();
-        float sh = Gdx.graphics.getHeight();
 
-        float cw = sw * 0.7f;
-        float ch = sh * 0.5f;
-
-        tableContainer.setSize(cw, ch);
-        tableContainer.setPosition((sw - cw) / 2.0f, (sh - ch) / 2.0f);
-        tableContainer.fillX();
-
+		//table for UI buttons
 		Table table = new Table(skin);
+		table.setWidth(stage.getWidth());
+		table.align(Align.center|Align.top);
+		table.setPosition(viewport.getLeftGutterWidth(), viewport.getScreenHeight()/2);
+ 
 
-        Label topLabel = new Label("A LABEL", skin);
-        topLabel.setAlignment(Align.center);
-        Slider slider = new Slider(0, 100, 1, false, skin);
-        Label anotherLabel = new Label("ANOTHER LABEL", skin);
-        anotherLabel.setAlignment(Align.center);
-
-        CheckBox checkBoxA = new CheckBox("Checkbox Left", skin);
-        CheckBox checkBoxB = new CheckBox("Checkbox Center", skin);
-        CheckBox checkBoxC = new CheckBox("Checkbox Right", skin);
-
-        Table buttonTable = new Table(skin);
-
-        TextButton buttonA = new TextButton("LEFT", skin);
+        Button buttonA = new TextButton("LEFT", skin);
 		buttonA.addListener(new ClickListener()
 		{
 			@Override
@@ -97,31 +75,15 @@ public class YorkPirates extends ApplicationAdapter {
 				stage.dispose();
 			}
 		});
-        TextButton buttonB = new TextButton("RIGHT", skin);
-
-        table.row().colspan(3).expandX().fillX();
-        table.add(topLabel).fillX();
-        table.row().colspan(3).expandX().fillX();
-        table.add(slider).fillX();
-        table.row().colspan(3).expandX().fillX();
-        table.add(anotherLabel).fillX();
-        table.row().expandX().fillX();
-
-        table.add(checkBoxA).expandX().fillX();
-        table.add(checkBoxB).expandX().fillX();
-        table.add(checkBoxC).expandX().fillX();
-        table.row().expandX().fillX();;
-
-        table.add(buttonTable).colspan(3);
-
-        buttonTable.pad(16);
-        buttonTable.row().fillX().expandX();
-        buttonTable.add(buttonA).width(cw/3.0f);
-        buttonTable.add(buttonB).width(cw/3.0f);
+        Button buttonB = new TextButton("RIGHT", skin);
+		buttonB.setHeight(300);
+		buttonB.setWidth(600);
 
 		stage.addActor(background);
-        tableContainer.setActor(table);
-        stage.addActor(tableContainer);
+		table.add(buttonA).align(Align.center).size(Value.percentWidth(.4f, table), Value.percentWidth(.04f, table)).growX();
+		table.row();
+		table.add(buttonB);
+		stage.addActor(table);
 		Gdx.input.setInputProcessor(stage);
 
 		//Creates the player's boat
@@ -153,6 +115,11 @@ public class YorkPirates extends ApplicationAdapter {
 	@Override
 	public void resize(int width, int height){
 		camera.setToOrtho(false, width, height);
+		camera2.setToOrtho(false, width, height);
+		camera2.update();
+		stage.draw();
+		stage.act();
+
 	}
 
 	@Override
@@ -169,10 +136,10 @@ public class YorkPirates extends ApplicationAdapter {
  		batch.end();
 		stage.draw();
 		stage.act();
+		camera2.update();
 		move();
 	}
 	//public void update(float deltaTime) {
-	//	(deltaTime);
 	//	ScreenUtils.clear(0, 0, 0, 1);
 	//}
 	public void move(){
