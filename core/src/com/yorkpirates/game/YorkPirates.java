@@ -41,7 +41,7 @@ public class YorkPirates extends ApplicationAdapter {
 	private ScreenViewport viewport;
 	private Hud hud;
 
-	
+
 	@Override
 	public void create() {
 		//batch camera
@@ -97,8 +97,10 @@ public class YorkPirates extends ApplicationAdapter {
 		camera.setToOrtho(false, width, height);
 		camera2.setToOrtho(false, width, height);
 		camera2.update();
+		camera2.translate(300-width/2,100-height/2);
 		stage.getStage().draw();
 		stage.getStage().act();
+		Gdx.input.setInputProcessor(stage.getStage());
 
 
 	}
@@ -121,7 +123,7 @@ public class YorkPirates extends ApplicationAdapter {
 		stage.getStage().draw();
 		stage.getStage().act();
 		camera2.update();
-		move(10);
+		move(5);
 	}
 	public void update(float deltaTime) {
 		ScreenUtils.clear(0, 0, 0, 1);
