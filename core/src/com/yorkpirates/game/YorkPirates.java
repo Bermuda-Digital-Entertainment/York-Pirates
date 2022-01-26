@@ -180,7 +180,8 @@ public class YorkPirates extends ApplicationAdapter {
 		if(Gdx.input.isKeyPressed(Keys.D)) player.translateX(1);
 		if(Gdx.input.isKeyPressed(Keys.W)) player.translateY(1);
 		if(Gdx.input.isKeyPressed(Keys.S)) player.translateY(-1);
-
+		
+		collision = True;
 		if(Gdx.input.isKeyPressed(Keys.LEFT)) camera.translate(-1,0);
 		if(Gdx.input.isKeyPressed(Keys.RIGHT)) camera.translate(1,0);
 		if(Gdx.input.isKeyPressed(Keys.UP)) camera.translate(0,1);
