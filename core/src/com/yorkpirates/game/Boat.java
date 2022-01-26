@@ -15,6 +15,9 @@ public class Boat extends Sprite {
   public Integer health;
   public Integer level;
   public Integer speed;
+  public Float firingRate;
+  public Float projectileDamage;
+  public Float projectileSpeed;
 
   public Boolean collides(ArrayList<College> collisionColleges, ArrayList<Boat> collisionBoats){
     Boolean collisionExists = false;
