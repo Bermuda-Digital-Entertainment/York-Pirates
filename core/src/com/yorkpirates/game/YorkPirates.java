@@ -1,5 +1,7 @@
 package com.yorkpirates.game;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.GL20;
@@ -9,9 +11,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.yorkpirates.game.Boat;
-import com.yorkpirates.game.College;
-import com.yorkpirates.game.Projectile;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -20,11 +19,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import com.yorkpirates.game.Boat;
+import com.yorkpirates.game.College;
+import com.yorkpirates.game.Projectile;
+
 ;
 public class YorkPirates extends ApplicationAdapter {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private Boat player;
+	private ArrayList<College> colleges;
 	private College halifax;
 	private College james;
 	private College goodricke;
@@ -37,9 +41,8 @@ public class YorkPirates extends ApplicationAdapter {
 	public void create() {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		System.out.println(Gdx.graphics.getWidth());
-		System.out.println(Gdx.graphics.getHeight());
 		Skin skin = new Skin(Gdx.files.internal("skin.json"));
+		colleges = new ArrayList<College>();
 		batch = new SpriteBatch();
 		viewport = new ScreenViewport();
 		viewport.setCamera(camera);
@@ -126,7 +129,7 @@ public class YorkPirates extends ApplicationAdapter {
 
 		//Creates the player's boat
 		player = new Boat();
-		player.setPosition(0,0);
+		player.setPosition(1000,1000);
 		player.setSize(48,48);
 		player.texture = new Texture(Gdx.files.internal("boat.png"));
 
@@ -176,6 +179,8 @@ public class YorkPirates extends ApplicationAdapter {
 	//	ScreenUtils.clear(0, 0, 0, 1);
 	//}
 	public void move(){
+		Boolean collision;
+
 		if(Gdx.input.isKeyPressed(Keys.A)) player.translateX(-1);
 		if(Gdx.input.isKeyPressed(Keys.D)) player.translateX(1);
 		if(Gdx.input.isKeyPressed(Keys.W)) player.translateY(1);
@@ -183,8 +188,10 @@ public class YorkPirates extends ApplicationAdapter {
 		
 		collision = True;
 		if(Gdx.input.isKeyPressed(Keys.LEFT)) camera.translate(-1,0);
+
 		if(Gdx.input.isKeyPressed(Keys.RIGHT)) camera.translate(1,0);
 		if(Gdx.input.isKeyPressed(Keys.UP)) camera.translate(0,1);
 		if(Gdx.input.isKeyPressed(Keys.DOWN)) camera.translate(0,-1);
 	}
+
 }
