@@ -31,6 +31,7 @@ public class YorkPirates extends ApplicationAdapter {
 	private Stage stage;
 	private Skin skin;
 	private Image background;
+	private ScreenViewport viewport;
 
 	@Override
 	public void create() {
@@ -40,7 +41,9 @@ public class YorkPirates extends ApplicationAdapter {
 		System.out.println(Gdx.graphics.getHeight());
 		Skin skin = new Skin(Gdx.files.internal("skin.json"));
 		batch = new SpriteBatch();
-		stage = new Stage(new ScreenViewport());
+		viewport = new ScreenViewport();
+		viewport.setCamera(camera);
+		stage = new Stage(viewport);
 		//TextButton button = new TextButton("Tap Me", skin);
 		//button.setSize(100, 50);
 		//button.setPosition(1920/2 -100, 1080/2 -50);
@@ -143,12 +146,13 @@ public class YorkPirates extends ApplicationAdapter {
 		goodricke.setSize(64,64);
 		goodricke.texture = new Texture(Gdx.files.internal("goodricke.png"));
 
-		
+
 	}
+
+
 	@Override
 	public void resize(int width, int height){
 		camera.setToOrtho(false, width, height);
-		
 	}
 
 	@Override
