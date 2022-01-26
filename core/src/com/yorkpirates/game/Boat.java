@@ -19,7 +19,7 @@ public class Boat extends Sprite {
   public Boolean collidesCollege(ArrayList<College> collisionColleges){
     Boolean collisionExists = false;
     for (Integer x=0; x<collisionColleges.size(); x++) {
-      if (getBoundingRectangle().overlaps(collisionColleges.get(0).getBoundingRectangle())) collisionExists=true;
+      if (getBoundingRectangle().overlaps(collisionColleges.get(x).getBoundingRectangle())) collisionExists=true;
     }
     return collisionExists;
   }
