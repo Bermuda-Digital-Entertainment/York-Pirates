@@ -28,6 +28,7 @@ public class YorkPirates extends ApplicationAdapter {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private Boat player;
+	private ArrayList<Boat> ships;
 	private ArrayList<College> colleges;
 	private College halifax;
 	private College james;
@@ -43,6 +44,7 @@ public class YorkPirates extends ApplicationAdapter {
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		Skin skin = new Skin(Gdx.files.internal("skin.json"));
 		colleges = new ArrayList<College>();
+		ships = new ArrayList<Boat>();
 		batch = new SpriteBatch();
 		viewport = new ScreenViewport();
 		viewport.setCamera(camera);
@@ -166,10 +168,11 @@ public class YorkPirates extends ApplicationAdapter {
 		batch.setProjectionMatrix(camera.combined);
  		batch.begin();
  		batch.draw(player.texture, player.getX(), player.getY());
-		//System.out.println(colleges.size());
-		//colleges.get(1).texture;
 		for (Integer x=0; x<colleges.size(); x++) {
 			 batch.draw(colleges.get(x).texture, colleges.get(x).getX(), colleges.get(x).getY());
+		}
+		for (Integer x=0; x<ships.size(); x++) {
+			 batch.draw(ships.get(x).texture, ships.get(x).getX(), ships.get(x).getY());
 		}
  		batch.end();
 		stage.draw();
@@ -181,25 +184,30 @@ public class YorkPirates extends ApplicationAdapter {
 	//	ScreenUtils.clear(0, 0, 0, 1);
 	//}
 
-	public void move(Integer speed){
+
+	/**
+	* Method that performs basic motion control for the player's boat and the camera.
+	* @speed Provides a speed at which the boat moves
+	*/
+	protected void move(Integer speed){
 
 		Boolean collision;
 
 		if(Gdx.input.isKeyPressed(Keys.A)) {
 			player.translateX(-speed);
-			if (player.collidesCollege(colleges)) player.translateX(speed);
+			if (player.collides(colleges,ships)) player.translateX(speed);
 		}
 		if(Gdx.input.isKeyPressed(Keys.D)) {
 			player.translateX(speed);
-			if (player.collidesCollege(colleges)) player.translateX(-speed);
+			if (player.collides(colleges,ships)) player.translateX(-speed);
 		}
 		if(Gdx.input.isKeyPressed(Keys.W)) {
 			player.translateY(speed);
-			if (player.collidesCollege(colleges)) player.translateY(-speed);
+			if (player.collides(colleges,ships)) player.translateY(-speed);
 		}
 		if(Gdx.input.isKeyPressed(Keys.S)) {
 			player.translateY(-speed);
-			if (player.collidesCollege(colleges)) player.translateY(speed);
+			if (player.collides(colleges,ships)) player.translateY(speed);
 		}
 
 		if(Gdx.input.isKeyPressed(Keys.LEFT)) camera.translate(-1,0);

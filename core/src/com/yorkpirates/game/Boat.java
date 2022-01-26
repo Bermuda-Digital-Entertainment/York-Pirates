@@ -16,10 +16,13 @@ public class Boat extends Sprite {
   public Integer level;
   public Integer speed;
 
-  public Boolean collidesCollege(ArrayList<College> collisionColleges){
+  public Boolean collides(ArrayList<College> collisionColleges, ArrayList<Boat> collisionBoats){
     Boolean collisionExists = false;
     for (Integer x=0; x<collisionColleges.size(); x++) {
       if (getBoundingRectangle().overlaps(collisionColleges.get(x).getBoundingRectangle())) collisionExists=true;
+    }
+    for (Integer x=0; x<collisionBoats.size(); x++) {
+      if (getBoundingRectangle().overlaps(collisionBoats.get(x).getBoundingRectangle())) collisionExists=true;
     }
     return collisionExists;
   }
