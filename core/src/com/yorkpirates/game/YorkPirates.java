@@ -39,7 +39,7 @@ public class YorkPirates extends ApplicationAdapter {
 	private Image background;
 	private ScreenViewport viewport;
 
-	
+
 	@Override
 	public void create() {
 		//batch camera
@@ -71,7 +71,7 @@ public class YorkPirates extends ApplicationAdapter {
 		table.setWidth(stage.getWidth());
 		table.align(Align.center|Align.top);
 		table.setPosition(viewport.getLeftGutterWidth(), viewport.getScreenHeight()/2);
- 
+
 
         Button buttonA = new TextButton("LEFT", skin);
 		buttonA.addListener(new ClickListener()
@@ -123,10 +123,7 @@ public class YorkPirates extends ApplicationAdapter {
 	public void resize(int width, int height){
 		camera.setToOrtho(false, width, height);
 		camera2.setToOrtho(false, width, height);
-		camera2.update();
-		stage.draw();
-		stage.act();
-
+		camera2.translate(300-width/2,100-height/2);
 	}
 
 	@Override
@@ -147,7 +144,7 @@ public class YorkPirates extends ApplicationAdapter {
 		stage.draw();
 		stage.act();
 		camera2.update();
-		move(10);
+		move(5);
 	}
 	//public void update(float deltaTime) {
 	//	ScreenUtils.clear(0, 0, 0, 1);
