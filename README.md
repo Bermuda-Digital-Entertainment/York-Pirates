@@ -9,5 +9,6 @@ The project is organised in the way described by the libGDX documentation in ord
 
 ## Core Class Structure
 - YorkPirates - Main game Class
-- College - A class that inherits math.Rectangle with College specific code
-- Boat -  A class that inherits math.Rectangle with boat specific code
+- College - A class that inherits graphics.g2d.Sprite with College specific code
+- Boat -  A class that inherits graphics.g2d.Sprite with boat specific code
+- Projectile - A class that inherits graphics.g2d.Sprite with weapon specific code
