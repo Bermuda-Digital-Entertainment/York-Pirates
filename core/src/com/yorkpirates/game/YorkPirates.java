@@ -47,20 +47,13 @@ public class YorkPirates extends ApplicationAdapter {
 		//batch camera
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		//stage camera
-		camera2 = new OrthographicCamera();
-		camera2.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		System.out.println(Gdx.graphics.getWidth());
 		System.out.println(Gdx.graphics.getHeight());
-		//ui skin
 		colleges = new ArrayList<College>();
 		ships = new ArrayList<Boat>();
 		batch = new SpriteBatch();
-		viewport = new ScreenViewport();
-		viewport.setCamera(camera2);
-		stage = new Hud(new Stage(viewport));
-		
-
+		//ui call
+		stage = new Hud(new Stage());
 		Gdx.input.setInputProcessor(stage.getStage());
 
 		//Creates the player's boat
@@ -88,20 +81,11 @@ public class YorkPirates extends ApplicationAdapter {
 
 	}
 
-	//private Stage Hud(Stage stage2) {
-	//	return null;
-	//}
 
 	@Override
 	public void resize(int width, int height){
 		camera.setToOrtho(false, width, height);
-		camera2.setToOrtho(false, width, height);
-		camera2.update();
-		camera2.translate(300-width/2,100-height/2);
-		stage.getStage().draw();
-		stage.getStage().act();
-		Gdx.input.setInputProcessor(stage.getStage());
-
+		stage.getStage().getViewport().update(width, height, true);
 
 	}
 
@@ -120,9 +104,9 @@ public class YorkPirates extends ApplicationAdapter {
 			 batch.draw(ships.get(x).texture, ships.get(x).getX(), ships.get(x).getY());
 		}
  		batch.end();
-		stage.getStage().draw();
 		stage.getStage().act();
-		camera2.update();
+		stage.getStage().draw();
+		
 		move(5);
 	}
 	public void update(float deltaTime) {
