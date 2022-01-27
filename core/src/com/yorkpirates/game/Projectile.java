@@ -18,7 +18,7 @@ public class Projectile extends Sprite {
   protected float range;
   protected Integer damage;
   protected Integer speed;
-  protected Sprite firing;
+  protected Boat firing;
   public Texture texture;
 
   /**
@@ -37,7 +37,7 @@ public class Projectile extends Sprite {
     firing=firingObject;
     x=firingObject.getX();
     x=firingObject.getY();
-    setSize(16,16);
+    setSize(48,48);
     distenceTravelled=0;
     texture = new Texture(Gdx.files.internal("boat.png"));
   }
@@ -49,6 +49,7 @@ public class Projectile extends Sprite {
     x=speedX + x;
     y=speedY + y;
     distenceTravelled += Math.pow((Math.pow(speedX,2) + Math.pow(speedY,2)),.5);
+    System.out.println(x);
     if (distenceTravelled >= range) return true;
     else return false;
   }
