@@ -32,9 +32,7 @@ public class YorkPirates extends ApplicationAdapter {
 	private Boat player;
 	private ArrayList<Boat> ships;
 	private ArrayList<College> colleges;
-	private College halifax;
-	private College james;
-	private College goodricke;
+	private ArrayList<Projectile> projectiles;
 	private Hud stage;
 	private Skin skin;
 	private Image background;
@@ -51,6 +49,7 @@ public class YorkPirates extends ApplicationAdapter {
 		System.out.println(Gdx.graphics.getHeight());
 		colleges = new ArrayList<College>();
 		ships = new ArrayList<Boat>();
+		projectiles = new ArrayList<Projectile>();
 		batch = new SpriteBatch();
 		//ui call
 		stage = new Hud(new Stage());
@@ -60,6 +59,7 @@ public class YorkPirates extends ApplicationAdapter {
 		player = new Boat();
 		player.setPosition(1000,1000);
 		player.setSize(48,48);
+		player.lastDirectionMoved=3;
 		player.texture = new Texture(Gdx.files.internal("boat.png"));
 
 		//Creates each college
@@ -103,11 +103,15 @@ public class YorkPirates extends ApplicationAdapter {
 		for (Integer x=0; x<ships.size(); x++) {
 			 batch.draw(ships.get(x).texture, ships.get(x).getX(), ships.get(x).getY());
 		}
+		for (Integer x=0; x<projectiles.size(); x++) {
+			 batch.draw(projectiles.get(x).texture, projectiles.get(x).getX(), projectiles.get(x).getY());
+		}
  		batch.end();
 		stage.getStage().act();
 		stage.getStage().draw();
-		
+
 		move(5);
+		projectileTick();
 	}
 	public void update(float deltaTime) {
 		ScreenUtils.clear(0, 0, 0, 1);
@@ -124,18 +128,22 @@ public class YorkPirates extends ApplicationAdapter {
 
 		if(Gdx.input.isKeyPressed(Keys.A)) {
 			player.translateX(-speed);
+			player.lastDirectionMoved=3;
 			if (player.collides(colleges,ships)) player.translateX(speed);
 		}
 		if(Gdx.input.isKeyPressed(Keys.D)) {
 			player.translateX(speed);
+			player.lastDirectionMoved=1;
 			if (player.collides(colleges,ships)) player.translateX(-speed);
 		}
 		if(Gdx.input.isKeyPressed(Keys.W)) {
 			player.translateY(speed);
+			player.lastDirectionMoved=0;
 			if (player.collides(colleges,ships)) player.translateY(-speed);
 		}
 		if(Gdx.input.isKeyPressed(Keys.S)) {
 			player.translateY(-speed);
+			player.lastDirectionMoved=2;
 			if (player.collides(colleges,ships)) player.translateY(speed);
 		}
 
@@ -144,4 +152,18 @@ public class YorkPirates extends ApplicationAdapter {
 		if(Gdx.input.isKeyPressed(Keys.UP)) camera.translate(0,1);
 		if(Gdx.input.isKeyPressed(Keys.DOWN)) camera.translate(0,-1);
 	}
+
+
+	protected void projectileTick(){
+		if(Gdx.input.isKeyPressed(Keys.SPACE)) {
+			projectiles.add(player.fire());
+		}
+		for (Integer i=0;i<projectiles.size(); i++) {
+			if (projectiles.get(i).moveTick()) projectiles.remove(i);
+
+		}
+		//player.isHit(projectiles);
+	}
+
+	protected void updateHealth(){}
 }
