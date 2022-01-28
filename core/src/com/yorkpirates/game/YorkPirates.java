@@ -99,8 +99,6 @@ public class YorkPirates extends ApplicationAdapter {
 		colleges.get(2).setPosition(700,100);
 		colleges.get(2).setSize(64,64);
 		colleges.get(2).texture = new Texture(Gdx.files.internal("james.png"));
-
-		projectiles.add(new Projectile(0f,1f,100f,player));
 	}
 
 
@@ -224,7 +222,7 @@ public class YorkPirates extends ApplicationAdapter {
 	// 		projectile.update(delta);
 	// 		if (projectile.remove)
 	// 			projectilesToRemove.add(projectile);
-		
+
 	// 	for (Integer i=0;i<projectiles.size(); i++) {
 	// 		if (projectiles.get(i).moveTick()){
 	// 			//System.out.println("Here");
@@ -237,4 +235,3 @@ public class YorkPirates extends ApplicationAdapter {
 	//}
 
 }
-
