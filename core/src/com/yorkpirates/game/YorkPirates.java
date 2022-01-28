@@ -27,6 +27,7 @@ import com.yorkpirates.game.Boat;
 import com.yorkpirates.game.College;
 import com.yorkpirates.game.Projectile;
 import com.yorkpirates.game.Hud;
+import com.yorkpirates.game.Bullet;
 
 ;
 public class YorkPirates extends ApplicationAdapter {
@@ -38,6 +39,7 @@ public class YorkPirates extends ApplicationAdapter {
 	private ArrayList<Boat> ships;
 	private ArrayList<College> colleges;
 	private ArrayList<Projectile> projectiles;
+	private ArrayList<Bullet> bullets;
 	private Hud stage;
 	private Image background;
 	private ScreenViewport viewport;
@@ -60,6 +62,7 @@ public class YorkPirates extends ApplicationAdapter {
 		System.out.println(Gdx.graphics.getHeight());
 		colleges = new ArrayList<College>();
 		ships = new ArrayList<Boat>();
+		bullets = new ArrayList<Bullet>();
 		projectiles = new ArrayList<Projectile>();
 		batch = new SpriteBatch();
 		//overlay batch, font, score, gold and health contructors
@@ -120,13 +123,28 @@ public class YorkPirates extends ApplicationAdapter {
 	@Override
 	public void render () {
 		float delta;
-
 		delta = Gdx.graphics.getDeltaTime();
+		//fire bullet
+		if (Gdx.input.isKeyJustPressed(Keys.SPACE)){
+			bullets.add(new Bullet(player.getX(), player.getY(), 40, 700));
+		}
+		//update bullet
+		ArrayList<Bullet> bulletsToRemove = new ArrayList<Bullet>();
+		for (Bullet bullet : bullets){
+			bullet.update(delta);
+			if (bullet.remove)
+				bulletsToRemove.add(bullet);
+		}
+		//remove bullets
+		bullets.removeAll(bulletsToRemove);
 
 		ScreenUtils.clear(.3f, .3f, 1, 1);
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
  		batch.begin();
+		for (Bullet bullet : bullets) {
+			bullet.render(batch);
+		}
  		batch.draw(player.texture, player.getX(), player.getY());
 		for (Integer x=0; x<colleges.size(); x++) {
 			 batch.draw(colleges.get(x).texture, colleges.get(x).getX(), colleges.get(x).getY());
@@ -155,7 +173,7 @@ public class YorkPirates extends ApplicationAdapter {
 		stage.getStage().draw();
 
 		move(50*delta);
-		projectileTick();
+		//projectileTick();
 	}
 
 
@@ -195,19 +213,28 @@ public class YorkPirates extends ApplicationAdapter {
 	}
 
 
-	protected void projectileTick(){
-		if(Gdx.input.isKeyPressed(Keys.SPACE) && player.canFire()) {
-			projectiles.add(player.fire());
-			player.resetFire();
-		}
-		for (Integer i=0;i<projectiles.size(); i++) {
-			if (projectiles.get(i).moveTick()){
-				System.out.println("Here");
-				projectiles.remove(i);
-			}
-		}
-		player.addTime(Gdx.graphics.getDeltaTime());
-		//player.isHit(projectiles);
-	}
+	// public void projectileTick(){
+	// 	float delta = Gdx.graphics.getDeltaTime();
+	// 	if(Gdx.input.isKeyPressed(Keys.SPACE) && player.canFire()) {
+	// 		projectiles.add(player.fire());
+	// 		player.resetFire();
+	// 	}
+	// 	ArrayList<Projectile> projectilesToRemove = new ArrayList<Projectile>();
+	// 	for (Projectile projectile : projectiles){
+	// 		projectile.update(delta);
+	// 		if (projectile.remove)
+	// 			projectilesToRemove.add(projectile);
+		
+	// 	for (Integer i=0;i<projectiles.size(); i++) {
+	// 		if (projectiles.get(i).moveTick()){
+	// 			//System.out.println("Here");
+	// 			if(projectiles.get(i).getRange() > 100)
+	// 				projectiles.remove(i);
+	// 		}
+	// 	}
+	// 	player.addTime(Gdx.graphics.getDeltaTime());
+	// 	//player.isHit(projectiles);
+	//}
 
 }
+

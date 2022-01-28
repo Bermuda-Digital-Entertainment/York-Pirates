@@ -20,6 +20,7 @@ public class Projectile extends Sprite {
   protected Integer speed;
   protected Boat firing;
   public Texture texture;
+  public Boolean remove = false;
 
   /**
   * Projectile Class Constructor.
@@ -60,7 +61,18 @@ public class Projectile extends Sprite {
     return x;
   }
 
+  public void update (float deltaTime) {
+  
+		if (this.getY() > this.range){
+			remove = true;
+    }
+  }
+		
+    
   public float getY(){
     return y;
+  }
+  public float getRange(){
+    return range;
   }
 }
