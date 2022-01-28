@@ -17,8 +17,8 @@ public class Hud extends Stage{
     private Stage stage;
     private FitViewport uiViewport;
     private Skin skin;
-	private Camera cameraHud;
-	public Boolean isStage;
+	  private Camera cameraHud;
+	  public Boolean isStage;
 
     public Hud(Stage hud) {
 
@@ -27,10 +27,10 @@ public class Hud extends Stage{
 		isStage = true;
 		cameraHud = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		cameraHud.position.set(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, 0);
-        uiViewport = new FitViewport(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, cameraHud);
-        stage = new Stage(uiViewport);
+    uiViewport = new FitViewport(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, cameraHud);
+    stage = new Stage(uiViewport);
 		//float aspectRatio = (GAME_WORLD_HEIGHT / GAME_WORLD_WIDTH); ... maybe needed later
-        Skin skin = new Skin(Gdx.files.internal("skin.json"));
+    Skin skin = new Skin(Gdx.files.internal("skin.json"));
 
 		//table for UI background
 		Table background = new Table();
@@ -45,9 +45,9 @@ public class Hud extends Stage{
 		table.setWidth(stage.getWidth());
 		table.align(Align.center|Align.top);
 		table.setPosition(uiViewport.getLeftGutterWidth(), uiViewport.getScreenHeight()/2);
- 
 
-        Button StartButton = new TextButton("Start Game", skin);
+
+    Button StartButton = new TextButton("Start Game", skin);
 		StartButton.addListener(new ClickListener()
 		{
 			@Override
@@ -56,20 +56,20 @@ public class Hud extends Stage{
 				isStage = false;
 			}
 		});
-        Button HelpButton = new TextButton("Controls", skin);
+    Button HelpButton = new TextButton("Controls", skin);
 		HelpButton.addListener(new ClickListener()
 		{
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				
+		    @Override
+		    public void clicked(InputEvent event, float x, float y) {
+
 			}
 		});
 		Button ExitButton = new TextButton("Exit Game", skin);
 		ExitButton.addListener(new ClickListener()
 		{
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				System.exit(0);
+	       @Override
+		     public void clicked(InputEvent event, float x, float y) {
+		         System.exit(0);
 			}
 		});
 
@@ -83,7 +83,7 @@ public class Hud extends Stage{
 		stage.addActor(table);
 
 
-		
+
     }
 
     public Stage getStage() { return stage; }

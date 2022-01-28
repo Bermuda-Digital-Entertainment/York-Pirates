@@ -23,7 +23,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-
 import com.yorkpirates.game.Boat;
 import com.yorkpirates.game.College;
 import com.yorkpirates.game.Projectile;
@@ -76,7 +75,7 @@ public class YorkPirates extends ApplicationAdapter {
 
 		//Creates the player's boat
 		player = new Boat();
-		player.setPosition(1000,1000);
+		player.setPosition(100,100);
 		player.setSize(48,48);
 		player.lastDirectionMoved=3;
 		player.texture = new Texture(Gdx.files.internal("boat.png"));
@@ -88,7 +87,7 @@ public class YorkPirates extends ApplicationAdapter {
 
 		colleges.get(0).setPosition(400,500);
 		colleges.get(0).setSize(64,64);
-		colleges.get(0).texture = new Texture(Gdx.files.internal("halifax.png"));
+		colleges.get(0).texture = new Texture(Gdx.files.internal("derwent.png"));
 
 		colleges.get(1).setPosition(300,800);
 		colleges.get(1).setSize(64,64);
@@ -98,12 +97,15 @@ public class YorkPirates extends ApplicationAdapter {
 		colleges.get(2).setSize(64,64);
 		colleges.get(2).texture = new Texture(Gdx.files.internal("james.png"));
 
+		projectiles.add(new Projectile(0f,1f,100f,player));
 	}
 
 
 	@Override
 	public void resize(int width, int height){
-		//check if updating the stage for hud is needed
+
+		//check if updating the stage for hud is neededd
+		//Checks if the start menu still exists.
 		if (stage.isStage == true){
 			stage.getStage().getViewport().update(width, height, true);
 		}
@@ -117,10 +119,11 @@ public class YorkPirates extends ApplicationAdapter {
 
 	@Override
 	public void render () {
+		float delta;
+
+		delta = Gdx.graphics.getDeltaTime();
+
 		ScreenUtils.clear(.3f, .3f, 1, 1);
-
-
-
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
  		batch.begin();
@@ -151,11 +154,8 @@ public class YorkPirates extends ApplicationAdapter {
 		stage.getStage().act();
 		stage.getStage().draw();
 
-		move(5);
+		move(50*delta);
 		projectileTick();
-	}
-	public void update(float deltaTime) {
-		ScreenUtils.clear(0, 0, 0, 1);
 	}
 
 
@@ -163,7 +163,7 @@ public class YorkPirates extends ApplicationAdapter {
 	* Method that performs basic motion control for the player's boat and the camera.
 	* @speed Provides a speed at which the boat moves
 	*/
-	protected void move(Integer speed){
+	protected void move(float speed){
 
 		Boolean collision;
 
@@ -201,10 +201,8 @@ public class YorkPirates extends ApplicationAdapter {
 		}
 		for (Integer i=0;i<projectiles.size(); i++) {
 			if (projectiles.get(i).moveTick()) projectiles.remove(i);
-
 		}
 		//player.isHit(projectiles);
 	}
 
-	protected void updateHealth(){}
 }

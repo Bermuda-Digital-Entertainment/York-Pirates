@@ -24,6 +24,11 @@ public class Boat extends Sprite {
   public Float projectileDamage;
   public Float projectileSpeed;
   public Integer lastDirectionMoved; //0 is up, 1 is right, 2 is down, 3 is left
+	private float lastShotTime;
+
+  public Boat(){
+    lastShotTime=0;
+  }
 
   public Boolean collides(ArrayList<College> collisionColleges, ArrayList<Boat> collisionBoats){
     Boolean collisionExists = false;
@@ -49,19 +54,21 @@ public class Boat extends Sprite {
 
   public Projectile fire() {
     Projectile cannonBall;
-    switch (lastDirectionMoved) {
-      case 0:
-        cannonBall = new Projectile(0f,10f,50f,this);
-        break;
-      case 1:
-        cannonBall = new Projectile(-10f,0f,50f,this);
-        break;
-      case 2:
-        cannonBall = new Projectile(0f,-10f,50f,this);
-        break;
-      default:
-        cannonBall = new Projectile(10f,0f,50f,this);
-        break;
+    if (lastShotTime<=2){
+      switch (lastDirectionMoved) {
+        case 0:
+          cannonBall = new Projectile(0f,10f,50f,this);
+          break;
+        case 1:
+          cannonBall = new Projectile(10f,0f,50f,this);
+          break;
+        case 2:
+          cannonBall = new Projectile(0f,-10f,50f,this);
+          break;
+        default:
+          cannonBall = new Projectile(-10f,0f,50f,this);
+          break;
+      }
     }
     return cannonBall;
   }

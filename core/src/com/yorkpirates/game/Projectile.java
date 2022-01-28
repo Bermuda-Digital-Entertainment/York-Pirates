@@ -36,7 +36,7 @@ public class Projectile extends Sprite {
     range=initRange;
     firing=firingObject;
     x=firingObject.getX();
-    x=firingObject.getY();
+    y=firingObject.getY();
     setSize(48,48);
     distenceTravelled=0;
     texture = new Texture(Gdx.files.internal("boat.png"));
@@ -46,11 +46,13 @@ public class Projectile extends Sprite {
   * Method to move a projectile by a set amount. It is called on every update
   */
   public Boolean moveTick (){
-    x=speedX + x;
-    y=speedY + y;
+    x+=speedX;
+    y+=speedY;
     distenceTravelled += Math.pow((Math.pow(speedX,2) + Math.pow(speedY,2)),.5);
-    System.out.println(x);
-    if (distenceTravelled >= range) return true;
+    System.out.print(x);
+    System.out.print(", ");
+    System.out.println(y);
+    if (distenceTravelled > range) return true;
     else return false;
   }
 
@@ -59,6 +61,6 @@ public class Projectile extends Sprite {
   }
 
   public float getY(){
-    return x;
+    return y;
   }
 }
