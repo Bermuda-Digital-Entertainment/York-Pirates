@@ -54,7 +54,7 @@ public class Hud extends Stage{
 			public void clicked(InputEvent event, float x, float y) {
 				dispose();
 				isStage = false;
-				Gdx.graphics.setWindowedMode(Gdx.graphics.getWidth()+1, Gdx.graphics.getHeight()+1);
+				Gdx.graphics.setWindowedMode(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			}
 		});
     Button HelpButton = new TextButton("Controls", skin);
