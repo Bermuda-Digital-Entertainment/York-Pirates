@@ -4,8 +4,12 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeType.Bitmap;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -19,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+
 import com.yorkpirates.game.Boat;
 import com.yorkpirates.game.College;
 import com.yorkpirates.game.Projectile;
@@ -29,28 +34,42 @@ public class YorkPirates extends ApplicationAdapter {
 	private OrthographicCamera camera;
 	private OrthographicCamera camera2;
 	private SpriteBatch batch;
+	private SpriteBatch batchUi;
 	private Boat player;
 	private ArrayList<Boat> ships;
 	private ArrayList<College> colleges;
 	private ArrayList<Projectile> projectiles;
 	private Hud stage;
-	private Skin skin;
 	private Image background;
 	private ScreenViewport viewport;
 	private Hud hud;
-
+	private BitmapFont font;
+	private String score;
+	private String gold;
+	private Texture blank;
+	private int health;
 
 	@Override
 	public void create() {
 		//batch camera
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		//UI overlay camera
+		camera2 = new OrthographicCamera();
+		camera2.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		System.out.println(Gdx.graphics.getWidth());
 		System.out.println(Gdx.graphics.getHeight());
 		colleges = new ArrayList<College>();
 		ships = new ArrayList<Boat>();
 		projectiles = new ArrayList<Projectile>();
 		batch = new SpriteBatch();
+		//overlay batch, font, score, gold and health contructors
+		batchUi = new SpriteBatch();
+		font = new BitmapFont(Gdx.files.internal("score.fnt"));
+		score = "69420";
+		gold = "420";
+		blank = new Texture("blank.png");
+		health = 100;
 		//ui call
 		stage = new Hud(new Stage());
 		Gdx.input.setInputProcessor(stage.getStage());
@@ -84,14 +103,23 @@ public class YorkPirates extends ApplicationAdapter {
 
 	@Override
 	public void resize(int width, int height){
-		camera.setToOrtho(false, width, height);
-		stage.getStage().getViewport().update(width, height, true);
+		//check if updating the stage for hud is needed
+		if (stage.isStage == true){
+			stage.getStage().getViewport().update(width, height, true);
+		}
+		else{
+			camera.setToOrtho(false, width, height);
+			camera2.setToOrtho(false, width, height);
+		}
+
 
 	}
 
 	@Override
 	public void render () {
 		ScreenUtils.clear(.3f, .3f, 1, 1);
+
+
 
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
@@ -107,6 +135,19 @@ public class YorkPirates extends ApplicationAdapter {
 			 batch.draw(projectiles.get(x).texture, projectiles.get(x).getX(), projectiles.get(x).getY());
 		}
  		batch.end();
+		//draw ui overlay for points, gold and health
+		camera2.update();
+		batchUi.begin();
+		batchUi.setProjectionMatrix(camera2.combined);
+		font.setColor(Color.WHITE);
+		font.draw(batchUi, score, camera2.viewportWidth - 50 -(score.length()*32), camera2.viewportHeight-80);
+		font.setColor(Color.GOLD);
+		font.draw(batchUi, gold, camera2.viewportWidth - 50 -(gold.length()*32), camera2.viewportHeight-30);
+		batchUi.setColor(Color.GREEN);
+		batchUi.draw(blank, camera2.viewportWidth/2, camera2.viewportHeight/2, health, 8);
+		batchUi.setColor(Color.WHITE);
+		batchUi.end();
+		//draw the hud - welcome screen
 		stage.getStage().act();
 		stage.getStage().draw();
 

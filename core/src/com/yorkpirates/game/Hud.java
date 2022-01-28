@@ -17,16 +17,17 @@ public class Hud extends Stage{
     private Stage stage;
     private FitViewport uiViewport;
     private Skin skin;
-	private Camera camera;
+	private Camera cameraHud;
+	public Boolean isStage;
 
     public Hud(Stage hud) {
 
 		final float GAME_WORLD_WIDTH = Gdx.graphics.getWidth();
 		final float GAME_WORLD_HEIGHT = Gdx.graphics.getHeight();
-
-		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		camera.position.set(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, 0);
-        uiViewport = new FitViewport(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, camera);
+		isStage = true;
+		cameraHud = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		cameraHud.position.set(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, 0);
+        uiViewport = new FitViewport(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, cameraHud);
         stage = new Stage(uiViewport);
 		//float aspectRatio = (GAME_WORLD_HEIGHT / GAME_WORLD_WIDTH); ... maybe needed later
         Skin skin = new Skin(Gdx.files.internal("skin.json"));
@@ -52,6 +53,7 @@ public class Hud extends Stage{
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				dispose();
+				isStage = false;
 			}
 		});
         Button HelpButton = new TextButton("Controls", skin);
