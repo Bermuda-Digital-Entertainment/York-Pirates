@@ -24,7 +24,7 @@ public class Boat extends Sprite {
   public Float projectileDamage;
   public Float projectileSpeed;
   public Integer lastDirectionMoved; //0 is up, 1 is right, 2 is down, 3 is left
-	private float lastShotTime;
+	public float lastShotTime;
 
   public Boat(){
     lastShotTime=0;
@@ -54,22 +54,34 @@ public class Boat extends Sprite {
 
   public Projectile fire() {
     Projectile cannonBall;
-    if (lastShotTime<=2){
-      switch (lastDirectionMoved) {
-        case 0:
-          cannonBall = new Projectile(0f,10f,50f,this);
-          break;
-        case 1:
-          cannonBall = new Projectile(10f,0f,50f,this);
-          break;
-        case 2:
-          cannonBall = new Projectile(0f,-10f,50f,this);
-          break;
-        default:
-          cannonBall = new Projectile(-10f,0f,50f,this);
-          break;
-      }
+    switch (lastDirectionMoved) {
+      case 0:
+        cannonBall = new Projectile(0f,10f,50f,this);
+        break;
+      case 1:
+        cannonBall = new Projectile(10f,0f,50f,this);
+        break;
+      case 2:
+        cannonBall = new Projectile(0f,-10f,50f,this);
+        break;
+      default:
+        cannonBall = new Projectile(-10f,0f,50f,this);
+        break;
     }
+    lastShotTime=0;
     return cannonBall;
+  }
+
+  public Boolean canFire(){
+    if (lastShotTime > 1) return true;
+    else return false;
+  }
+
+  public void addTime(float time){
+    lastShotTime+=time;
+  }
+
+  public void resetFire(){
+    lastShotTime=0;
   }
 }

@@ -196,12 +196,17 @@ public class YorkPirates extends ApplicationAdapter {
 
 
 	protected void projectileTick(){
-		if(Gdx.input.isKeyPressed(Keys.SPACE)) {
+		if(Gdx.input.isKeyPressed(Keys.SPACE) && player.canFire()) {
 			projectiles.add(player.fire());
+			player.resetFire();
 		}
 		for (Integer i=0;i<projectiles.size(); i++) {
-			if (projectiles.get(i).moveTick()) projectiles.remove(i);
+			if (projectiles.get(i).moveTick()){
+				System.out.println("Here");
+				projectiles.remove(i);
+			}
 		}
+		player.addTime(Gdx.graphics.getDeltaTime());
 		//player.isHit(projectiles);
 	}
 

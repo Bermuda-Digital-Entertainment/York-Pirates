@@ -49,11 +49,11 @@ public class Projectile extends Sprite {
     x+=speedX;
     y+=speedY;
     distenceTravelled += Math.pow((Math.pow(speedX,2) + Math.pow(speedY,2)),.5);
-    System.out.print(x);
+    System.out.print(range);
     System.out.print(", ");
-    System.out.println(y);
-    if (distenceTravelled > range) return true;
-    else return false;
+    System.out.println(distenceTravelled);
+    System.out.println(distenceTravelled > range);
+    return (distenceTravelled > range);
   }
 
   public float getX(){
