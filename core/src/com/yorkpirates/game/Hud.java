@@ -4,6 +4,8 @@ package com.yorkpirates.game;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -17,8 +19,9 @@ public class Hud extends Stage{
     private Stage stage;
     private FitViewport uiViewport;
     private Skin skin;
-	  private Camera cameraHud;
-	  public Boolean isStage;
+	private Camera cameraHud;
+	public Boolean isStage;
+	private SpriteBatch controlScreen;
 
     public Hud(Stage hud) {
 
@@ -29,6 +32,7 @@ public class Hud extends Stage{
 		cameraHud.position.set(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, 0);
     	uiViewport = new FitViewport(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, cameraHud);
     	stage = new Stage(uiViewport);
+		controlScreen = new SpriteBatch();
 		//float aspectRatio = (GAME_WORLD_HEIGHT / GAME_WORLD_WIDTH); ... maybe needed later
     	skin = new Skin(Gdx.files.internal("skin.json"));
 
