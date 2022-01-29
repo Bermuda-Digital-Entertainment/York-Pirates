@@ -15,6 +15,9 @@ The project is organised in the way described by the libGDX documentation in ord
 
 ## Building
 Set directory to the York-Pirates root directory and run:
+
 gradle run
+
 or
+
 gradle build
