@@ -41,9 +41,6 @@ public class YorkPirates extends ApplicationAdapter {
 	private ArrayList<Projectile> projectiles;
 	private ArrayList<Bullet> bullets;
 	private Hud stage;
-	private Image background;
-	private ScreenViewport viewport;
-	private Hud hud;
 	private BitmapFont font;
 	private String score;
 	private String gold;

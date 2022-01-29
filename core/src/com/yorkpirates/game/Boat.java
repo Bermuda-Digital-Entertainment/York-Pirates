@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.Gdx;
 
-import com.yorkpirates.game.College;
-import com.yorkpirates.game.Bullet;
 
 /**
 * Boat Class. Implements a sprite with additional Properties for Health and boat Level. It can be an AI boat or a player
@@ -27,7 +25,7 @@ public class Boat extends Sprite {
 	public float lastShotTime;
 
   public Boat(){
-    lastShotTime=0;
+    lastShotTime=6;
   }
 
   public Boolean collides(ArrayList<College> collisionColleges, ArrayList<Boat> collisionBoats){
@@ -68,7 +66,7 @@ public class Boat extends Sprite {
         cannonBall = new Bullet(-50,0,500,this);
         break;
     }
-    lastShotTime=0;
+    resetFire();
     return cannonBall;
   }
   public Texture getTexture(){

@@ -1,6 +1,6 @@
 package com.yorkpirates.game;
 
-import java.util.ArrayList;
+
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -27,10 +27,10 @@ public class Hud extends Stage{
 		isStage = true;
 		cameraHud = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		cameraHud.position.set(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, 0);
-    uiViewport = new FitViewport(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, cameraHud);
-    stage = new Stage(uiViewport);
+    	uiViewport = new FitViewport(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, cameraHud);
+    	stage = new Stage(uiViewport);
 		//float aspectRatio = (GAME_WORLD_HEIGHT / GAME_WORLD_WIDTH); ... maybe needed later
-    Skin skin = new Skin(Gdx.files.internal("skin.json"));
+    	skin = new Skin(Gdx.files.internal("skin.json"));
 
 		//table for UI background
 		Table background = new Table();
