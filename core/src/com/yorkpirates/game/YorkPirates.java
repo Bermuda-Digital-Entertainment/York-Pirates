@@ -204,15 +204,9 @@ public class YorkPirates extends ApplicationAdapter {
 			if (player.collides(colleges,ships)) player.translateY(speed);
 		}
 
-		if(Gdx.input.isKeyPressed(Keys.LEFT)) {
-			camera.translate(-1,0);
-			player.texture = new Texture(Gdx.files.internal("pirate_ship_left.png"));
-		}
-		if(Gdx.input.isKeyPressed(Keys.RIGHT)) camera.translate(1,0);
-		if(Gdx.input.isKeyPressed(Keys.UP)) {
-			camera.translate(0,1);
-			player.texture = new Texture(Gdx.files.internal("pirate_ship_up.png"));
-		}
+		if(Gdx.input.isKeyPressed(Keys.LEFT))camera.translate(-1,0);
+		if(Gdx.input.isKeyPressed(Keys.RIGHT))camera.translate(1,0);
+		if(Gdx.input.isKeyPressed(Keys.UP))camera.translate(0,1);
 		if(Gdx.input.isKeyPressed(Keys.DOWN)) camera.translate(0,-1);
 	}
 
