@@ -81,7 +81,7 @@ public class YorkPirates extends ApplicationAdapter {
 		player.setPosition(100,100);
 		player.setSize(48,48);
 		player.lastDirectionMoved=3;
-		player.texture = new Texture(Gdx.files.internal("boat.png"));
+		player.texture = new Texture(Gdx.files.internal("pirate_ship_up.png"));
 
 		//Creates each college
 		colleges.add(new College());
@@ -124,7 +124,7 @@ public class YorkPirates extends ApplicationAdapter {
 		delta = Gdx.graphics.getDeltaTime();
 		//fire bullet
 		if (Gdx.input.isKeyJustPressed(Keys.SPACE)){
-			bullets.add(new Bullet(player.getX(), player.getY(), 40, 700));
+			bullets.add(new Bullet(player.getX()+2, player.getY()+35, 40, 700));
 		}
 		//update bullet
 		ArrayList<Bullet> bulletsToRemove = new ArrayList<Bullet>();
@@ -143,7 +143,7 @@ public class YorkPirates extends ApplicationAdapter {
 		for (Bullet bullet : bullets) {
 			bullet.render(batch);
 		}
- 		batch.draw(player.texture, player.getX(), player.getY());
+ 		batch.draw(player.texture, player.getX(), player.getY(), 20, 48);
 		for (Integer x=0; x<colleges.size(); x++) {
 			 batch.draw(colleges.get(x).texture, colleges.get(x).getX(), colleges.get(x).getY());
 		}
@@ -204,9 +204,15 @@ public class YorkPirates extends ApplicationAdapter {
 			if (player.collides(colleges,ships)) player.translateY(speed);
 		}
 
-		if(Gdx.input.isKeyPressed(Keys.LEFT)) camera.translate(-1,0);
+		if(Gdx.input.isKeyPressed(Keys.LEFT)) {
+			camera.translate(-1,0);
+			player.texture = new Texture(Gdx.files.internal("pirate_ship_left.png"));
+		} 
 		if(Gdx.input.isKeyPressed(Keys.RIGHT)) camera.translate(1,0);
-		if(Gdx.input.isKeyPressed(Keys.UP)) camera.translate(0,1);
+		if(Gdx.input.isKeyPressed(Keys.UP)) {
+			camera.translate(0,1);
+			player.texture = new Texture(Gdx.files.internal("pirate_ship_up.png"));
+		}
 		if(Gdx.input.isKeyPressed(Keys.DOWN)) camera.translate(0,-1);
 	}
 

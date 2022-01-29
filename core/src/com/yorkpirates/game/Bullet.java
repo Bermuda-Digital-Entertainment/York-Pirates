@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+
 public class Bullet {
 
 	public float speed;
@@ -26,6 +27,7 @@ public class Bullet {
 
 		if (texture == null)
 		texture = new Texture(Gdx.files.internal("cannon_ball.png"));
+
 	}
 
 	public void update (float deltaTime) {
@@ -36,7 +38,7 @@ public class Bullet {
 	}
 
 	public void render (SpriteBatch batch) {
-		batch.draw(texture, x, y);
+		batch.draw(texture, x, y, 16, 16);
 	}
 
 }
