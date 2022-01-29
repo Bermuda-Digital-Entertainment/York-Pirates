@@ -88,10 +88,8 @@ public class Boat extends Sprite {
   return texture;
   }
 
-  public Boolean canFire(float delta){
-    addTime(delta);
-    if (lastShotTime > 3) return true;
-    else return false;
+  public Boolean canFire(){
+    return (lastShotTime > 1);
   }
 
   public void addTime(float time){
