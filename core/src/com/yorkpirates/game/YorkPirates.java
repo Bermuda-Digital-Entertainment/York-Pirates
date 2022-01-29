@@ -41,9 +41,6 @@ public class YorkPirates extends ApplicationAdapter {
 	private ArrayList<Projectile> projectiles;
 	private ArrayList<Bullet> bullets;
 	private Hud stage;
-	private Image background;
-	private ScreenViewport viewport;
-	private Hud hud;
 	private BitmapFont font;
 	private String score;
 	private String gold;
@@ -123,8 +120,9 @@ public class YorkPirates extends ApplicationAdapter {
 	public void render () {
 		float delta;
 		delta = Gdx.graphics.getDeltaTime();
+		player.canFire(delta);
 		//fire bullet
-		if (Gdx.input.isKeyJustPressed(Keys.SPACE)){
+		if (Gdx.input.isKeyJustPressed(Keys.SPACE) && (player.lastShotTime > 5)){
 			bullets.add(player.fire());
 		}
 		//update bullet
