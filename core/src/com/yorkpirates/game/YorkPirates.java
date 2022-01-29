@@ -111,6 +111,7 @@ public class YorkPirates extends ApplicationAdapter {
 		else{
 			camera.setToOrtho(false, width, height);
 			camera2.setToOrtho(false, width, height);
+			camera.translate(player.getX()-(Gdx.graphics.getWidth()/2), player.getY()-(Gdx.graphics.getHeight()/2));
 		}
 
 
