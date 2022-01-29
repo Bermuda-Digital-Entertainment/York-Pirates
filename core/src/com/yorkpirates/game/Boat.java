@@ -14,7 +14,7 @@ public class Boat extends Sprite {
   private Float x;
   private Float y;
   public Texture texture;
-  public Integer health;
+  public float health;
   public Integer maxHealth;
   public Integer level;
   public float speed = 50;
@@ -26,6 +26,7 @@ public class Boat extends Sprite {
 
   public Boat(){
     lastShotTime=6;
+    health = 1.0f;
   }
 
   public Boolean collides(ArrayList<College> collisionColleges, ArrayList<Boat> collisionBoats){

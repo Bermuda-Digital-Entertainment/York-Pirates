@@ -45,8 +45,6 @@ public class YorkPirates extends ApplicationAdapter {
 	private String score;
 	private String gold;
 	private Texture blank;
-	private int health;
-
 
 	@Override
 	public void create() {
@@ -63,13 +61,12 @@ public class YorkPirates extends ApplicationAdapter {
 		bullets = new ArrayList<Bullet>();
 		projectiles = new ArrayList<Projectile>();
 		batch = new SpriteBatch();
-		//overlay batch, font, score, gold and health contructors
+		//overlay batch, font, score, gold and contructors
 		batchUi = new SpriteBatch();
 		font = new BitmapFont(Gdx.files.internal("score.fnt"));
 		score = "69420";
 		gold = "420";
 		blank = new Texture("blank.png");
-		health = 100;
 		//ui call
 		stage = new Hud(new Stage());
 		Gdx.input.setInputProcessor(stage.getStage());
@@ -158,16 +155,26 @@ public class YorkPirates extends ApplicationAdapter {
 			 batch.draw(projectiles.get(x).texture, projectiles.get(x).getX(), projectiles.get(x).getY());
 		}
  		batch.end();
-		//draw ui overlay for points, gold and health
+		//draw ui overlay
 		camera2.update();
 		batchUi.begin();
 		batchUi.setProjectionMatrix(camera2.combined);
+		//draw points
 		font.setColor(Color.WHITE);
 		font.draw(batchUi, score, camera2.viewportWidth - 50 -(score.length()*32), camera2.viewportHeight-80);
+		//draw gold
 		font.setColor(Color.GOLD);
 		font.draw(batchUi, gold, camera2.viewportWidth - 50 -(gold.length()*32), camera2.viewportHeight-30);
-		batchUi.setColor(Color.GREEN);
-		batchUi.draw(blank, camera2.viewportWidth/2, camera2.viewportHeight/2, health, 8);
+		//draw health
+		batchUi.setColor(Color.BLACK);
+		batchUi.draw(blank, 0, 0, camera.viewportWidth, 8);
+		if (player.health > 0.6)
+			batchUi.setColor(Color.GREEN);
+		else if (player.health > 0.3)
+			batchUi.setColor(Color.ORANGE);
+		else
+			batchUi.setColor(Color.RED);
+		batchUi.draw(blank, 0, 0, player.health*camera.viewportWidth, 8);
 		batchUi.setColor(Color.WHITE);
 		batchUi.end();
 		//draw the hud - welcome screen
