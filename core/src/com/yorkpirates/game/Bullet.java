@@ -3,6 +3,7 @@ package com.yorkpirates.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.yorkpirates.game.Boat;
 
 
 public class Bullet {
@@ -13,16 +14,38 @@ public class Bullet {
 	public static final int WIDTH = 16;
 	public static final int HEIGHT = 16;
 	private static Texture texture;
-
-	float x, y;
+	public float xSpeed;
+	public float ySpeed;
+	public Boat firingObject;
+	public float x, y;
+	public Integer lastDirectionMoved = 0; //0 is up, 1 is right, 2 is down, 3 is left
+	
 
 	public boolean remove = false;
 
-	public Bullet (float x, float y, float speed, float range) {
+	public Bullet (float xSpeed, float ySpeed, float range, Boat firingObject) {
 		this.range = range;
-		this.speed = speed;
-		this.x = x;
-		this.y = y;
+		this.speed = firingObject.getBulletSpeed();
+		this.xSpeed = xSpeed;
+		this.ySpeed = ySpeed;
+		switch (firingObject.lastDirectionMoved){
+			case 0:
+				this.x = firingObject.getX()+2;
+				this.y = firingObject.getY()+40;
+				break;
+			case 1:
+				this.x = firingObject.getX()+40;
+				this.y = firingObject.getY()+2;
+				break;
+			case 2:
+				this.x = firingObject.getX()+2;
+				this.y = firingObject.getY();
+				break;
+			default:
+				this.x = firingObject.getX();
+				this.y = firingObject.getY()+2;
+				break;
+		}
 
 
 		if (texture == null)
@@ -31,8 +54,9 @@ public class Bullet {
 	}
 
 	public void update (float deltaTime) {
-		distance = y + (speed * deltaTime);
-		y += speed * deltaTime;
+		distance += speed * deltaTime;
+		y += (ySpeed * deltaTime);
+		x += (xSpeed * deltaTime);
 		if (distance > this.range)
 			remove = true;
 	}

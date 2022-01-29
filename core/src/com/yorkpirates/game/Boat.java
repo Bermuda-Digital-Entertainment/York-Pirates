@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.Gdx;
 
 import com.yorkpirates.game.College;
-import com.yorkpirates.game.Projectile;
+import com.yorkpirates.game.Bullet;
 
 /**
 * Boat Class. Implements a sprite with additional Properties for Health and boat Level. It can be an AI boat or a player
@@ -19,7 +19,7 @@ public class Boat extends Sprite {
   public Integer health;
   public Integer maxHealth;
   public Integer level;
-  public Integer speed;
+  public float speed = 50;
   public Float firingRate;
   public Float projectileDamage;
   public Float projectileSpeed;
@@ -52,24 +52,42 @@ public class Boat extends Sprite {
     return hit;
   }
 
-  public Projectile fire() {
-    Projectile cannonBall;
+  public Bullet fire() {
+    Bullet cannonBall;
     switch (lastDirectionMoved) {
       case 0:
-        cannonBall = new Projectile(0f,10f,50f,this);
+        cannonBall = new Bullet(0,50,500,this);
         break;
       case 1:
-        cannonBall = new Projectile(10f,0f,50f,this);
+        cannonBall = new Bullet(50,0,500,this);
         break;
       case 2:
-        cannonBall = new Projectile(0f,-10f,50f,this);
+        cannonBall = new Bullet(0,-50,500,this);
         break;
       default:
-        cannonBall = new Projectile(-10f,0f,50f,this);
+        cannonBall = new Bullet(-50,0,500,this);
         break;
     }
     lastShotTime=0;
     return cannonBall;
+  }
+  public Texture getTexture(){
+    Texture texture;
+    switch (lastDirectionMoved){
+    case 0:
+      texture = new Texture(Gdx.files.internal("pirate_ship_up.png"));
+      break;
+    case 1:
+      texture = new Texture(Gdx.files.internal("pirate_ship_right.png"));
+      break;
+    case 2:
+      texture = new Texture(Gdx.files.internal("pirate_ship_down.png"));
+      break;
+    default:
+      texture = new Texture(Gdx.files.internal("pirate_ship_left.png"));
+      break;
+    }
+  return texture;
   }
 
   public Boolean canFire(){
@@ -83,5 +101,8 @@ public class Boat extends Sprite {
 
   public void resetFire(){
     lastShotTime=0;
+  }
+  public float getBulletSpeed(){
+    return speed;
   }
 }

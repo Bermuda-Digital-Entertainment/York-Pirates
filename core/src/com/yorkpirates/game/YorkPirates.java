@@ -50,6 +50,7 @@ public class YorkPirates extends ApplicationAdapter {
 	private Texture blank;
 	private int health;
 
+
 	@Override
 	public void create() {
 		//batch camera
@@ -124,7 +125,7 @@ public class YorkPirates extends ApplicationAdapter {
 		delta = Gdx.graphics.getDeltaTime();
 		//fire bullet
 		if (Gdx.input.isKeyJustPressed(Keys.SPACE)){
-			bullets.add(new Bullet(player.getX()+2, player.getY()+35, 40, 700));
+			bullets.add(player.fire());
 		}
 		//update bullet
 		ArrayList<Bullet> bulletsToRemove = new ArrayList<Bullet>();
@@ -143,7 +144,10 @@ public class YorkPirates extends ApplicationAdapter {
 		for (Bullet bullet : bullets) {
 			bullet.render(batch);
 		}
- 		batch.draw(player.texture, player.getX(), player.getY(), 20, 48);
+		if (player.lastDirectionMoved == 0 || player.lastDirectionMoved ==2)
+ 			batch.draw(player.getTexture(), player.getX(), player.getY(), 20, 48);
+		if (player.lastDirectionMoved == 1 || player.lastDirectionMoved ==3)
+ 			batch.draw(player.getTexture(), player.getX(), player.getY(), 48, 20);
 		for (Integer x=0; x<colleges.size(); x++) {
 			 batch.draw(colleges.get(x).texture, colleges.get(x).getX(), colleges.get(x).getY());
 		}
