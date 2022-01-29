@@ -91,8 +91,7 @@ public class Boat extends Sprite {
   }
 
   public Boolean canFire(){
-    if (lastShotTime > 1) return true;
-    else return false;
+    return (lastShotTime > 1);
   }
 
   public void addTime(float time){

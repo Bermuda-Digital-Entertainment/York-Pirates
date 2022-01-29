@@ -80,7 +80,7 @@ public class YorkPirates extends ApplicationAdapter {
 		//Creates the player's boat
 		player = new Boat();
 		player.setPosition(100,100);
-		player.setSize(48,48);
+		player.setSize(24,48);
 		player.lastDirectionMoved=3;
 		player.texture = new Texture(Gdx.files.internal("pirate_ship_up.png"));
 
@@ -123,8 +123,10 @@ public class YorkPirates extends ApplicationAdapter {
 	public void render () {
 		float delta;
 		delta = Gdx.graphics.getDeltaTime();
+		//Add time from last shot
+		player.addTime(delta);
 		//fire bullet
-		if (Gdx.input.isKeyJustPressed(Keys.SPACE)){
+		if (Gdx.input.isKeyJustPressed(Keys.SPACE) && player.canFire()){
 			bullets.add(player.fire());
 		}
 		//update bullet
@@ -175,7 +177,6 @@ public class YorkPirates extends ApplicationAdapter {
 		stage.getStage().draw();
 
 		move(50*delta);
-		//projectileTick();
 	}
 
 
@@ -184,9 +185,6 @@ public class YorkPirates extends ApplicationAdapter {
 	* @speed Provides a speed at which the boat moves
 	*/
 	protected void move(float speed){
-
-		Boolean collision;
-
 		if(Gdx.input.isKeyPressed(Keys.A)) {
 			player.translateX(-speed);
 			player.lastDirectionMoved=3;
@@ -211,7 +209,7 @@ public class YorkPirates extends ApplicationAdapter {
 		if(Gdx.input.isKeyPressed(Keys.LEFT)) {
 			camera.translate(-1,0);
 			player.texture = new Texture(Gdx.files.internal("pirate_ship_left.png"));
-		} 
+		}
 		if(Gdx.input.isKeyPressed(Keys.RIGHT)) camera.translate(1,0);
 		if(Gdx.input.isKeyPressed(Keys.UP)) {
 			camera.translate(0,1);
@@ -219,29 +217,5 @@ public class YorkPirates extends ApplicationAdapter {
 		}
 		if(Gdx.input.isKeyPressed(Keys.DOWN)) camera.translate(0,-1);
 	}
-
-
-	// public void projectileTick(){
-	// 	float delta = Gdx.graphics.getDeltaTime();
-	// 	if(Gdx.input.isKeyPressed(Keys.SPACE) && player.canFire()) {
-	// 		projectiles.add(player.fire());
-	// 		player.resetFire();
-	// 	}
-	// 	ArrayList<Projectile> projectilesToRemove = new ArrayList<Projectile>();
-	// 	for (Projectile projectile : projectiles){
-	// 		projectile.update(delta);
-	// 		if (projectile.remove)
-	// 			projectilesToRemove.add(projectile);
-
-	// 	for (Integer i=0;i<projectiles.size(); i++) {
-	// 		if (projectiles.get(i).moveTick()){
-	// 			//System.out.println("Here");
-	// 			if(projectiles.get(i).getRange() > 100)
-	// 				projectiles.remove(i);
-	// 		}
-	// 	}
-	// 	player.addTime(Gdx.graphics.getDeltaTime());
-	// 	//player.isHit(projectiles);
-	//}
 
 }
