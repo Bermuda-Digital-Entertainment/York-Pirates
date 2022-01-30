@@ -172,7 +172,7 @@ public class YorkPirates extends ApplicationAdapter {
 			batchUi.setColor(Color.ORANGE);
 		else
 			batchUi.setColor(Color.RED);
-		batchUi.draw(blank, 0, 0, player.health*camera.viewportWidth, 12);
+		batchUi.draw(blank, 0, 0, player.health()*camera.viewportWidth, 12);
 		batchUi.setColor(Color.WHITE);
 		batchUi.end();
 		//draw the hud - welcome screen

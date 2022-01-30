@@ -23,4 +23,8 @@ public class College extends Sprite {
     }
     return hit;
   }
+
+  public float health(){
+    return health/maxHealth;
+  }
 }

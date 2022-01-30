@@ -27,7 +27,8 @@ public class Boat extends Sprite {
 
   public Boat(){
     lastShotTime=6;
-    health = 1.0f;
+    health = 50f;
+    maxHealth = 50f;
   }
 
   public Boolean collides(ArrayList<College> collisionColleges, ArrayList<Boat> collisionBoats){
