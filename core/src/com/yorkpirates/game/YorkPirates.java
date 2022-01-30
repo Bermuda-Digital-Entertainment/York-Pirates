@@ -43,7 +43,8 @@ public class YorkPirates extends ApplicationAdapter {
 	private String score;
 	private String gold;
 	private Texture blank;
-	private int topID = 4;
+	private GameOver gameOverScreen;
+	private int topID=4;
 
 	@Override
 	public void create() {
@@ -67,8 +68,9 @@ public class YorkPirates extends ApplicationAdapter {
 		blank = new Texture("blank.png");
 		//ui call
 		stage = new Hud(new Stage());
-		Gdx.input.setInputProcessor(stage.getStage());
+		gameOverScreen = new GameOver(new Stage());
 
+		Gdx.input.setInputProcessor(stage.getStage());
 		//Creates the player's boat
 		player = new Boat(0);
 		player.setPosition(100,100);
@@ -102,6 +104,9 @@ public class YorkPirates extends ApplicationAdapter {
 		//Checks if the start menu still exists.
 		if (stage.isStage == true){
 			stage.getStage().getViewport().update(width, height, true);
+		}
+		else if (gameOverScreen.isStage == true){
+			gameOverScreen.getStage().getViewport().update(width, height, true);
 		}
 		else{
 			camera.setToOrtho(false, width, height);
@@ -153,6 +158,25 @@ public class YorkPirates extends ApplicationAdapter {
 		for (Integer x=0; x<ships.size(); x++) {
 			 batch.draw(ships.get(x).texture, ships.get(x).getX(), ships.get(x).getY());
 		}
+		// draw college health
+		for (College college : colleges){
+			if (college.health() > 0.6){
+				batch.setColor(Color.GREEN);
+				batch.draw(blank, college.getX(), college.getY()+college.getHeight()+5, college.health()*college.getWidth(), 8);
+			}
+			else if (college.health() > 0.3){
+				batch.setColor(Color.ORANGE);
+				batch.draw(blank, college.getX(), college.getY()+college.getHeight()+5, college.health()*college.getWidth(), 8);
+			}
+			else if (college.health() < 0.3 && college.health() > 0){
+				batch.setColor(Color.RED);
+				batch.draw(blank, college.getX(), college.getY()+college.getHeight()+5, college.health()*college.getWidth(), 8);
+			}
+			else if (college.health() <= 0){
+				batch.draw(blank, college.getX(), college.getY()+college.getHeight()+5, college.health()*0, 8);
+			}
+		batch.setColor(Color.WHITE);
+		}
  		batch.end();
 		//draw ui overlay
 		camera2.update();
@@ -166,13 +190,19 @@ public class YorkPirates extends ApplicationAdapter {
 		font.draw(batchUi, gold, camera2.viewportWidth - 50 -(gold.length()*32), camera2.viewportHeight-30);
 		//draw health
 		batchUi.setColor(Color.BLACK);
-		batchUi.draw(blank, 0, 0, camera.viewportWidth, 8);
+		batchUi.draw(blank, 0, 0, camera.viewportWidth, 12);
 		if (player.health() > 0.6)
 			batchUi.setColor(Color.GREEN);
 		else if (player.health() > 0.3)
 			batchUi.setColor(Color.ORANGE);
-		else
+		else if (player.health() < 0.3 && player.health() > 0)
 			batchUi.setColor(Color.RED);
+		else if (player.health() <= 0){
+			gameOverScreen.getStage().act();
+			gameOverScreen.getStage().draw();
+			Gdx.input.setInputProcessor(gameOverScreen.getStage());
+		}
+
 		batchUi.draw(blank, 0, 0, player.health()*camera.viewportWidth, 12);
 		batchUi.setColor(Color.WHITE);
 		batchUi.end();

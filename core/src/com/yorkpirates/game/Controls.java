@@ -47,7 +47,7 @@ public class Controls extends Stage{
         Drawable drawable = new TextureRegionDrawable(new TextureRegion(controlScreen));
         style.imageUp = drawable;
         style.imageDown = drawable;
-        stage.addActor(button);
+        //stage.addActor(myButton);
 		//float aspectRatio = (GAME_WORLD_HEIGHT / GAME_WORLD_WIDTH); ... maybe needed later
     	
     }
