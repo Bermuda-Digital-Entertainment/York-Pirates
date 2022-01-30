@@ -166,9 +166,9 @@ public class YorkPirates extends ApplicationAdapter {
 		//draw health
 		batchUi.setColor(Color.BLACK);
 		batchUi.draw(blank, 0, 0, camera.viewportWidth, 8);
-		if (player.health > 0.6)
+		if (player.health() > 0.6)
 			batchUi.setColor(Color.GREEN);
-		else if (player.health > 0.3)
+		else if (player.health() > 0.3)
 			batchUi.setColor(Color.ORANGE);
 		else
 			batchUi.setColor(Color.RED);

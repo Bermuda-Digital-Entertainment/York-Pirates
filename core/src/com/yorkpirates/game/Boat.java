@@ -16,7 +16,7 @@ public class Boat extends Sprite {
   private Float y;
   public Texture texture;
   public float health;
-  public Integer maxHealth;
+  public float maxHealth;
   public Integer level;
   public float speed = 50;
   public Float firingRate;
@@ -103,5 +103,9 @@ public class Boat extends Sprite {
   }
   public float getBulletSpeed(){
     return speed;
+  }
+
+  public float health(){
+    return health/maxHealth;
   }
 }
