@@ -160,6 +160,7 @@ public class YorkPirates extends ApplicationAdapter {
 			 batch.draw(ships.get(x).texture, ships.get(x).getX(), ships.get(x).getY());
 		}
 		// draw college health
+		ArrayList<College> collegesToRemove = new ArrayList<College>();
 		for (College college : colleges){
 			if (college.health() > 0.6){
 				batch.setColor(Color.GREEN);
@@ -175,7 +176,11 @@ public class YorkPirates extends ApplicationAdapter {
 			}
 			else if (college.health() <= 0){
 				batch.draw(blank, college.getX(), college.getY()+college.getHeight()+5, college.health()*0, 8);
+				score += 200;
+				gold += 100;
+				collegesToRemove.add(college);
 			}
+		colleges.removeAll(collegesToRemove);
 		batch.setColor(Color.WHITE);
 		}
  		batch.end();
