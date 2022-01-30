@@ -20,7 +20,7 @@ public class Bullet {
 	public Boat firingObject;
 	public float x, y;
 	public Integer lastDirectionMoved = 0; //0 is up, 1 is right, 2 is down, 3 is left
-	public final float damage = 0.1f;
+	public final float damage = 5f;
 
 
 	public boolean remove = false;

@@ -9,7 +9,9 @@ import com.badlogic.gdx.math.Rectangle;
 */
 public class College extends Sprite {
   public Texture texture;
-  public float health=5;
+  public float health=150;
+  public float maxHealth=150;
+
 
   public Boolean isHit(Bullet collisionProjectile) {
     Rectangle testRectangle = new Rectangle(collisionProjectile.x,collisionProjectile.y,16,16);
