@@ -43,6 +43,7 @@ public class YorkPirates extends ApplicationAdapter {
 	private String score;
 	private String gold;
 	private Texture blank;
+	private int topID = 4;
 
 	@Override
 	public void create() {
@@ -69,16 +70,16 @@ public class YorkPirates extends ApplicationAdapter {
 		Gdx.input.setInputProcessor(stage.getStage());
 
 		//Creates the player's boat
-		player = new Boat();
+		player = new Boat(0);
 		player.setPosition(100,100);
 		player.setSize(48,20);
 		player.lastDirectionMoved=3;
 		player.texture = new Texture(Gdx.files.internal("pirate_ship_up.png"));
 
 		//Creates each college
-		colleges.add(new College());
-		colleges.add(new College());
-		colleges.add(new College());
+		colleges.add(new College(1));
+		colleges.add(new College(2));
+		colleges.add(new College(3));
 
 		colleges.get(0).setPosition(400,500);
 		colleges.get(0).setSize(64,64);

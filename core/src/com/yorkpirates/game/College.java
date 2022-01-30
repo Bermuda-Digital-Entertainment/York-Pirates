@@ -11,7 +11,11 @@ public class College extends Sprite {
   public Texture texture;
   public float health=150;
   public float maxHealth=150;
+  public final int ID;
 
+  public College(int collegeID){
+    this.ID=collegeID;
+  }
 
   public Boolean isHit(Bullet collisionProjectile) {
     Rectangle testRectangle = new Rectangle(collisionProjectile.x,collisionProjectile.y,16,16);

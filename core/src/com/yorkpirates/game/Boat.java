@@ -24,11 +24,13 @@ public class Boat extends Sprite {
   public Float projectileSpeed;
   public Integer lastDirectionMoved; //0 is up, 1 is right, 2 is down, 3 is left
 	public float lastShotTime;
+  public final int ID;
 
-  public Boat(){
+  public Boat(int boatID){
     lastShotTime=6;
     health = 50f;
     maxHealth = 50f;
+    this.ID=boatID;
   }
 
   public Boolean collides(ArrayList<College> collisionColleges, ArrayList<Boat> collisionBoats){
@@ -45,7 +47,7 @@ public class Boat extends Sprite {
   public Boolean isHit(Bullet collisionProjectile) {
     Rectangle testRectangle = new Rectangle(collisionProjectile.x,collisionProjectile.y,16,16);
     Boolean hit = false;
-    if (getBoundingRectangle().overlaps(testRectangle) && collisionProjectile.firingObject != this){
+    if (getBoundingRectangle().overlaps(testRectangle) && collisionProjectile.firingObject.ID != this.ID){
       collisionProjectile.remove=true;
       hit = true;
       health -= collisionProjectile.damage;
