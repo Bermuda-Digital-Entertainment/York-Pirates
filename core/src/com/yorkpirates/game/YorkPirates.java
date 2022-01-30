@@ -143,11 +143,9 @@ public class YorkPirates extends ApplicationAdapter {
 			bullet.render(batch);
 		}
 		if (player.lastDirectionMoved == 0 || player.lastDirectionMoved ==2)
- 			batch.draw(player.getTexture(), player.getX(), player.getY(), 20, 48);
-			player.setSize(20,48);
+ 			batch.draw(player.getTexture(), player.getX(), player.getY(), 37, 80);
 		if (player.lastDirectionMoved == 1 || player.lastDirectionMoved ==3)
- 			batch.draw(player.getTexture(), player.getX(), player.getY(), 48, 20);
-			player.setSize(48,20);
+ 			batch.draw(player.getTexture(), player.getX(), player.getY(), 80, 37);
 		for (Integer x=0; x<colleges.size(); x++) {
 			 batch.draw(colleges.get(x).texture, colleges.get(x).getX(), colleges.get(x).getY());
 		}
@@ -174,7 +172,7 @@ public class YorkPirates extends ApplicationAdapter {
 			batchUi.setColor(Color.ORANGE);
 		else
 			batchUi.setColor(Color.RED);
-		batchUi.draw(blank, 0, 0, player.health*camera.viewportWidth, 8);
+		batchUi.draw(blank, 0, 0, player.health*camera.viewportWidth, 12);
 		batchUi.setColor(Color.WHITE);
 		batchUi.end();
 		//draw the hud - welcome screen

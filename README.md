@@ -12,3 +12,12 @@ The project is organised in the way described by the libGDX documentation in ord
 - College - A class that inherits graphics.g2d.Sprite with College specific code
 - Boat -  A class that inherits graphics.g2d.Sprite with boat specific code
 - Projectile - A class that inherits graphics.g2d.Sprite with weapon specific code
+
+## Building
+Set directory to the York-Pirates root directory and run:
+
+`gradle run`
+
+or
+
+`gradle build`

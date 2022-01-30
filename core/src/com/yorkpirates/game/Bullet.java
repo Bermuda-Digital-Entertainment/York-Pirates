@@ -32,20 +32,20 @@ public class Bullet {
 		this.ySpeed = ySpeed;
 		switch (firingObject.lastDirectionMoved){
 			case 0:
-				this.x = firingObject.getX()+2;
-				this.y = firingObject.getY()+40;
+				this.x = firingObject.getX()+10;
+				this.y = firingObject.getY()+75;
 				break;
 			case 1:
-				this.x = firingObject.getX()+40;
-				this.y = firingObject.getY()+2;
+				this.x = firingObject.getX()+75;
+				this.y = firingObject.getY()+10;
 				break;
 			case 2:
-				this.x = firingObject.getX()+2;
+				this.x = firingObject.getX()+10;
 				this.y = firingObject.getY();
 				break;
 			default:
 				this.x = firingObject.getX();
-				this.y = firingObject.getY()+2;
+				this.y = firingObject.getY()+10;
 				break;
 		}
 
