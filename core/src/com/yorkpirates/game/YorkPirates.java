@@ -25,7 +25,6 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import com.yorkpirates.game.Boat;
 import com.yorkpirates.game.College;
-import com.yorkpirates.game.Projectile;
 import com.yorkpirates.game.Hud;
 import com.yorkpirates.game.Bullet;
 
@@ -38,7 +37,6 @@ public class YorkPirates extends ApplicationAdapter {
 	private Boat player;
 	private ArrayList<Boat> ships;
 	private ArrayList<College> colleges;
-	private ArrayList<Projectile> projectiles;
 	private ArrayList<Bullet> bullets;
 	private Hud stage;
 	private BitmapFont font;
@@ -59,7 +57,6 @@ public class YorkPirates extends ApplicationAdapter {
 		colleges = new ArrayList<College>();
 		ships = new ArrayList<Boat>();
 		bullets = new ArrayList<Bullet>();
-		projectiles = new ArrayList<Projectile>();
 		batch = new SpriteBatch();
 		//overlay batch, font, score, gold and contructors
 		batchUi = new SpriteBatch();
@@ -74,7 +71,7 @@ public class YorkPirates extends ApplicationAdapter {
 		//Creates the player's boat
 		player = new Boat();
 		player.setPosition(100,100);
-		player.setSize(24,48);
+		player.setSize(48,20);
 		player.lastDirectionMoved=3;
 		player.texture = new Texture(Gdx.files.internal("pirate_ship_up.png"));
 
@@ -128,6 +125,10 @@ public class YorkPirates extends ApplicationAdapter {
 		ArrayList<Bullet> bulletsToRemove = new ArrayList<Bullet>();
 		for (Bullet bullet : bullets){
 			bullet.update(delta);
+			player.isHit(bullet);
+			for (College college : colleges){
+				college.isHit(bullet);
+			}
 			if (bullet.remove)
 				bulletsToRemove.add(bullet);
 		}
@@ -151,9 +152,6 @@ public class YorkPirates extends ApplicationAdapter {
 		for (Integer x=0; x<ships.size(); x++) {
 			 batch.draw(ships.get(x).texture, ships.get(x).getX(), ships.get(x).getY());
 		}
-		for (Integer x=0; x<projectiles.size(); x++) {
-			 batch.draw(projectiles.get(x).texture, projectiles.get(x).getX(), projectiles.get(x).getY());
-		}
  		batch.end();
 		//draw ui overlay
 		camera2.update();
@@ -168,9 +166,9 @@ public class YorkPirates extends ApplicationAdapter {
 		//draw health
 		batchUi.setColor(Color.BLACK);
 		batchUi.draw(blank, 0, 0, camera.viewportWidth, 8);
-		if (player.health > 0.6)
+		if (player.health() > 0.6)
 			batchUi.setColor(Color.GREEN);
-		else if (player.health > 0.3)
+		else if (player.health() > 0.3)
 			batchUi.setColor(Color.ORANGE);
 		else
 			batchUi.setColor(Color.RED);
