@@ -21,7 +21,7 @@ public class Hud extends Stage{
     private Skin skin;
 	private Camera cameraHud;
 	public Boolean isStage;
-	private SpriteBatch controlScreen;
+	private Controls controlScreen;
 
     public Hud(Stage hud) {
 
@@ -32,7 +32,7 @@ public class Hud extends Stage{
 		cameraHud.position.set(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, 0);
     	uiViewport = new FitViewport(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, cameraHud);
     	stage = new Stage(uiViewport);
-		controlScreen = new SpriteBatch();
+		controlScreen = new Controls(new Stage(uiViewport));
 		//float aspectRatio = (GAME_WORLD_HEIGHT / GAME_WORLD_WIDTH); ... maybe needed later
     	skin = new Skin(Gdx.files.internal("skin.json"));
 
@@ -51,7 +51,7 @@ public class Hud extends Stage{
 		table.setPosition(uiViewport.getLeftGutterWidth(), uiViewport.getScreenHeight()/2);
 
 
-    Button StartButton = new TextButton("Start Game", skin);
+    	Button StartButton = new TextButton("Start Game", skin);
 		StartButton.addListener(new ClickListener()
 		{
 			@Override
@@ -61,12 +61,13 @@ public class Hud extends Stage{
 				Gdx.graphics.setWindowedMode(Gdx.graphics.getWidth()-1, Gdx.graphics.getHeight()-1);
 			}
 		});
-    Button HelpButton = new TextButton("Controls", skin);
+    	Button HelpButton = new TextButton("Controls", skin);
 		HelpButton.addListener(new ClickListener()
 		{
 		    @Override
 		    public void clicked(InputEvent event, float x, float y) {
-
+				//controlScreen.getStage().act();
+				//controlScreen.getStage().draw();
 			}
 		});
 		Button ExitButton = new TextButton("Exit Game", skin);
