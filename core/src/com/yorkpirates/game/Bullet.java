@@ -30,6 +30,7 @@ public class Bullet {
 		this.speed = firingObject.getBulletSpeed();
 		this.xSpeed = xSpeed;
 		this.ySpeed = ySpeed;
+		this.firingObject=firingObject;
 		switch (firingObject.lastDirectionMoved){
 			case 0:
 				this.x = firingObject.getX()+10;
