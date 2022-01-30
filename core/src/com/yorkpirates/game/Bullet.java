@@ -4,7 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-
+import com.yorkpirates.game.Boat;
+import com.yorkpirates.game.College;
 
 public class Bullet {
 
@@ -19,7 +20,8 @@ public class Bullet {
 	public Boat firingObject;
 	public float x, y;
 	public Integer lastDirectionMoved = 0; //0 is up, 1 is right, 2 is down, 3 is left
-	
+	public final float damage = 0.1f;
+
 
 	public boolean remove = false;
 

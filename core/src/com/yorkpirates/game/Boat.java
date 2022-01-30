@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Rectangle;
 
 
 /**
@@ -40,13 +41,13 @@ public class Boat extends Sprite {
     return collisionExists;
   }
 
-  public Boolean isHit(ArrayList<Projectile> collisionProjectile) {
+  public Boolean isHit(Bullet collisionProjectile) {
+    Rectangle testRectangle = new Rectangle(collisionProjectile.x,collisionProjectile.y,16,16);
     Boolean hit = false;
-    for (Integer i=0; x<collisionProjectile.size(); i++) {
-      if (getBoundingRectangle().overlaps(collisionProjectile.get(i).getBoundingRectangle())){
-        hit = true;
-        health -= collisionProjectile.get(i).damage;
-      }
+    if (getBoundingRectangle().overlaps(testRectangle) && collisionProjectile.firingObject != this){
+      collisionProjectile.remove=true;
+      hit = true;
+      health -= collisionProjectile.damage;
     }
     return hit;
   }
