@@ -11,6 +11,7 @@ public class College extends Sprite {
   public Texture texture;
   public float health=150;
   public float maxHealth=150;
+  public Float projectileDamage;
   public final int ID;
 
   public College(int collegeID){
@@ -30,5 +31,12 @@ public class College extends Sprite {
 
   public float health(){
     return health/maxHealth;
+  }
+
+  public Boolean isDestroyed(){
+    if (health<=0)
+      return true;
+    else
+      return false;
   }
 }

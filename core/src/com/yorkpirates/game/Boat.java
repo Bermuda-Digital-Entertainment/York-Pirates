@@ -28,6 +28,7 @@ public class Boat extends Sprite {
 
   public Boat(int boatID){
     lastShotTime=6;
+    projectileDamage=10f;
     health = 50f;
     maxHealth = 50f;
     this.ID=boatID;
@@ -110,5 +111,12 @@ public class Boat extends Sprite {
 
   public float health(){
     return health/maxHealth;
+  }
+
+  public Boolean isDestroyed(){
+    if (health<=0)
+      return true;
+    else
+      return false;
   }
 }
