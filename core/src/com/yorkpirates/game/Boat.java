@@ -19,8 +19,8 @@ public class Boat extends Sprite {
   public float maxHealth;
   public Integer level;
   public float speed = 50;
-  public Float firingRate;
-  public Float projectileDamage;
+  public float firingRate = 1f;
+  public Float projectileDamage = 10f;
   public Float projectileSpeed;
   public Integer lastDirectionMoved; //0 is up, 1 is right, 2 is down, 3 is left
 	public float lastShotTime;
@@ -28,7 +28,6 @@ public class Boat extends Sprite {
 
   public Boat(int boatID){
     lastShotTime=6;
-    projectileDamage=10f;
     health = 50f;
     maxHealth = 50f;
     this.ID=boatID;
@@ -96,7 +95,7 @@ public class Boat extends Sprite {
   }
 
   public Boolean canFire(){
-    return (lastShotTime > 1);
+    return (lastShotTime > firingRate);
   }
 
   public void addTime(float time){
@@ -106,7 +105,7 @@ public class Boat extends Sprite {
   public void resetFire(){
     lastShotTime=0;
   }
-  
+
   public float getBulletSpeed(){
     return speed;
   }
