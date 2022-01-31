@@ -92,9 +92,29 @@ public class YorkPirates extends ApplicationAdapter {
 		colleges.get(1).setSize(64,64);
 		colleges.get(1).texture = new Texture(Gdx.files.internal("goodricke.png"));
 
-		colleges.get(2).setPosition(700,100);
+		colleges.get(2).setPosition(700,1500);
 		colleges.get(2).setSize(64,64);
 		colleges.get(2).texture = new Texture(Gdx.files.internal("james.png"));
+
+		//Creates some idle ships
+		ships.add(new Boat(4));
+		ships.add(new Boat(5));
+		ships.add(new Boat(6));
+
+		ships.get(0);
+		ships.get(0).setPosition(300,250);
+		ships.get(0).setSize(20,48);
+		ships.get(0).texture = new Texture(Gdx.files.internal("pirate_ship_up.png"));
+
+		ships.get(1);
+		ships.get(1).setPosition(950,650);
+		ships.get(1).setSize(20,48);
+		ships.get(1).texture = new Texture(Gdx.files.internal("pirate_ship_up.png"));
+
+		ships.get(2);
+		ships.get(2).setPosition(480,600);
+		ships.get(2).setSize(20,48);
+		ships.get(2).texture = new Texture(Gdx.files.internal("pirate_ship_up.png"));
 	}
 
 
@@ -157,7 +177,7 @@ public class YorkPirates extends ApplicationAdapter {
 			 batch.draw(colleges.get(x).texture, colleges.get(x).getX(), colleges.get(x).getY());
 		}
 		for (Integer x=0; x<ships.size(); x++) {
-			 batch.draw(ships.get(x).texture, ships.get(x).getX(), ships.get(x).getY());
+			 batch.draw(ships.get(x).texture, ships.get(x).getX(), ships.get(x).getY(), 37, 80);
 		}
 		// draw college health
 		ArrayList<College> collegesToRemove = new ArrayList<College>();

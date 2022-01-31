@@ -14,14 +14,14 @@ public class College extends Sprite {
   public Float projectileDamage;
   public final int ID;
 
-  public College(int collegeID){
+  public College(int collegeID) {
     this.ID=collegeID;
   }
 
   public Boolean isHit(Bullet collisionProjectile) {
     Rectangle testRectangle = new Rectangle(collisionProjectile.x,collisionProjectile.y,16,16);
     Boolean hit = false;
-    if (getBoundingRectangle().overlaps(testRectangle)){
+    if (getBoundingRectangle().overlaps(testRectangle) && collisionProjectile.firingObjectID != this.ID){
       collisionProjectile.remove=true;
       hit = true;
       health -= collisionProjectile.damage;
@@ -29,11 +29,11 @@ public class College extends Sprite {
     return hit;
   }
 
-  public float health(){
+  public float health() {
     return health/maxHealth;
   }
 
-  public Boolean isDestroyed(){
+  public Boolean isDestroyed() {
     if (health<=0)
       return true;
     else

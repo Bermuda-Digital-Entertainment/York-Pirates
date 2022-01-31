@@ -48,7 +48,7 @@ public class Boat extends Sprite {
   public Boolean isHit(Bullet collisionProjectile) {
     Rectangle testRectangle = new Rectangle(collisionProjectile.x,collisionProjectile.y,16,16);
     Boolean hit = false;
-    if (getBoundingRectangle().overlaps(testRectangle) && collisionProjectile.firingObject.ID != this.ID){
+    if (getBoundingRectangle().overlaps(testRectangle) && collisionProjectile.firingObjectID != this.ID){
       collisionProjectile.remove=true;
       hit = true;
       health -= collisionProjectile.damage;

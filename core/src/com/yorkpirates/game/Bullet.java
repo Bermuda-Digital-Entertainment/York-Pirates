@@ -17,7 +17,7 @@ public class Bullet {
 	private static Texture texture;
 	public float xSpeed;
 	public float ySpeed;
-	public Boat firingObject;
+	public int firingObjectID;
 	public float x, y;
 	public Integer lastDirectionMoved = 0; //0 is up, 1 is right, 2 is down, 3 is left
 	public final float damage;
@@ -30,7 +30,7 @@ public class Bullet {
 		this.speed = firingObject.getBulletSpeed();
 		this.xSpeed = xSpeed;
 		this.ySpeed = ySpeed;
-		this.firingObject=firingObject;
+		this.firingObjectID=firingObject.ID;
 		this.damage=firingObject.projectileDamage;
 		switch (firingObject.lastDirectionMoved){
 			case 0:
