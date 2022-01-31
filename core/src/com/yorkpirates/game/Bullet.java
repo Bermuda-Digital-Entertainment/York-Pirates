@@ -51,6 +51,20 @@ public class Bullet {
 				break;
 		}
 
+		if (texture == null)
+		texture = new Texture(Gdx.files.internal("cannon_ball.png"));
+
+	}
+
+	public Bullet (float xSpeed, float ySpeed, float range, College firingObject) {
+		this.range = range;
+		this.speed = firingObject.getBulletSpeed();
+		this.xSpeed = xSpeed;
+		this.ySpeed = ySpeed;
+		this.firingObjectID=firingObject.ID;
+		this.damage=firingObject.projectileDamage;
+		this.x = firingObject.getX();
+		this.y = firingObject.getY();
 
 		if (texture == null)
 		texture = new Texture(Gdx.files.internal("cannon_ball.png"));

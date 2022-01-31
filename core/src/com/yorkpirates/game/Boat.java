@@ -75,6 +75,7 @@ public class Boat extends Sprite {
     resetFire();
     return cannonBall;
   }
+
   public Texture getTexture(){
     Texture texture;
     switch (lastDirectionMoved){
@@ -105,6 +106,7 @@ public class Boat extends Sprite {
   public void resetFire(){
     lastShotTime=0;
   }
+  
   public float getBulletSpeed(){
     return speed;
   }

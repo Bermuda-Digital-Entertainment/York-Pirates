@@ -45,7 +45,7 @@ public class YorkPirates extends ApplicationAdapter {
 	private String gold;
 	private Texture blank;
 	private GameOver gameOverScreen;
-	private int topID=4;
+	private int topID=7;
 
 	@Override
 	public void create() {
@@ -55,8 +55,6 @@ public class YorkPirates extends ApplicationAdapter {
 		//UI overlay camera
 		camera2 = new OrthographicCamera();
 		camera2.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		System.out.println(Gdx.graphics.getWidth());
-		System.out.println(Gdx.graphics.getHeight());
 		colleges = new ArrayList<College>();
 		ships = new ArrayList<Boat>();
 		bullets = new ArrayList<Bullet>();
@@ -182,6 +180,10 @@ public class YorkPirates extends ApplicationAdapter {
 		// draw college health
 		ArrayList<College> collegesToRemove = new ArrayList<College>();
 		for (College college : colleges){
+			college.addTime(delta);
+			if (college.canFire(player.getX(),player.getY())){
+				bullets.add(college.fire(player.getX(),player.getY()));
+			}
 			if (college.health() > 0.6){
 				batch.setColor(Color.GREEN);
 				batch.draw(blank, college.getX(), college.getY()+college.getHeight()+5, college.health()*college.getWidth(), 8);
