@@ -41,12 +41,15 @@ public class YorkPirates extends ApplicationAdapter {
 	private ArrayList<Bullet> bullets;
 	private Hud stage;
 	private BitmapFont font;
-	private String score;
-	private String gold;
+	private Integer score;
+	private Integer gold;
 	private Texture blank;
 	private GameOver gameOverScreen;
-	private int topID=4;
+	private int topID=7;
 
+	/**
+	* The initialisation method for the game. This creates most of the game objects (except bullets/cannon balls which are created during gameplay)
+	*/
 	@Override
 	public void create() {
 		//batch camera
@@ -55,8 +58,6 @@ public class YorkPirates extends ApplicationAdapter {
 		//UI overlay camera
 		camera2 = new OrthographicCamera();
 		camera2.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		System.out.println(Gdx.graphics.getWidth());
-		System.out.println(Gdx.graphics.getHeight());
 		colleges = new ArrayList<College>();
 		ships = new ArrayList<Boat>();
 		bullets = new ArrayList<Bullet>();
@@ -64,8 +65,8 @@ public class YorkPirates extends ApplicationAdapter {
 		//overlay batch, font, score, gold and contructors
 		batchUi = new SpriteBatch();
 		font = new BitmapFont(Gdx.files.internal("score.fnt"));
-		score = "69420";
-		gold = "420";
+		score = 0;
+		gold = 0;
 		blank = new Texture("blank.png");
 		//ui call
 		stage = new Hud(new Stage());
@@ -75,7 +76,7 @@ public class YorkPirates extends ApplicationAdapter {
 		//Creates the player's boat
 		player = new Boat(0);
 		player.setPosition(100,100);
-		player.setSize(48,20);
+		player.setSize(48,48);
 		player.lastDirectionMoved=3;
 		player.texture = new Texture(Gdx.files.internal("pirate_ship_up.png"));
 
@@ -92,12 +93,37 @@ public class YorkPirates extends ApplicationAdapter {
 		colleges.get(1).setSize(64,64);
 		colleges.get(1).texture = new Texture(Gdx.files.internal("goodricke.png"));
 
-		colleges.get(2).setPosition(700,100);
+		colleges.get(2).setPosition(700,1500);
 		colleges.get(2).setSize(64,64);
 		colleges.get(2).texture = new Texture(Gdx.files.internal("james.png"));
+
+		//Creates some idle ships
+		ships.add(new Boat(4));
+		ships.add(new Boat(5));
+		ships.add(new Boat(6));
+
+		ships.get(0);
+		ships.get(0).setPosition(300,250);
+		ships.get(0).setSize(20,48);
+		ships.get(0).texture = new Texture(Gdx.files.internal("pirate_ship_up.png"));
+
+		ships.get(1);
+		ships.get(1).setPosition(950,650);
+		ships.get(1).setSize(20,48);
+		ships.get(1).texture = new Texture(Gdx.files.internal("pirate_ship_up.png"));
+
+		ships.get(2);
+		ships.get(2).setPosition(480,600);
+		ships.get(2).setSize(20,48);
+		ships.get(2).texture = new Texture(Gdx.files.internal("pirate_ship_up.png"));
 	}
 
 
+	/**
+	* Method that resizes the cameras if the window is resized
+	* @param width The new width of the window
+	* @param height The new height of the window
+	*/
 	@Override
 	public void resize(int width, int height){
 
@@ -118,6 +144,10 @@ public class YorkPirates extends ApplicationAdapter {
 
 	}
 
+
+	/**
+	* Method that performs the majority of the live gameplay and calls most of the other parts of the code
+	*/
 	@Override
 	public void render () {
 		float delta;
@@ -157,11 +187,14 @@ public class YorkPirates extends ApplicationAdapter {
 			 batch.draw(colleges.get(x).texture, colleges.get(x).getX(), colleges.get(x).getY());
 		}
 		for (Integer x=0; x<ships.size(); x++) {
-			 batch.draw(ships.get(x).texture, ships.get(x).getX(), ships.get(x).getY());
+			 batch.draw(ships.get(x).texture, ships.get(x).getX(), ships.get(x).getY(), 37, 80);
 		}
 		// draw college health
-		ArrayList<College> collegesToRemove = new ArrayList<College>();
 		for (College college : colleges){
+			college.addTime(delta);
+			if (college.canFire(player.getX(),player.getY())){
+				bullets.add(college.fire(player.getX(),player.getY()));
+			}
 			if (college.health() > 0.6){
 				batch.setColor(Color.GREEN);
 				batch.draw(blank, college.getX(), college.getY()+college.getHeight()+5, college.health()*college.getWidth(), 8);
@@ -174,13 +207,14 @@ public class YorkPirates extends ApplicationAdapter {
 				batch.setColor(Color.RED);
 				batch.draw(blank, college.getX(), college.getY()+college.getHeight()+5, college.health()*college.getWidth(), 8);
 			}
-			else if (college.health() <= 0){
+			else if (college.isDestroyed() && college.markedDestroyed==0){
 				batch.draw(blank, college.getX(), college.getY()+college.getHeight()+5, college.health()*0, 8);
 				score += 200;
 				gold += 100;
-				collegesToRemove.add(college);
+				college.markedDestroyed=1;
+				college.texture = new Texture(Gdx.files.internal("cannon_ball.png"));//Placeholder image, please change
 			}
-		//colleges.removeAll(collegesToRemove);
+
 		batch.setColor(Color.WHITE);
 		}
  		batch.end();
@@ -190,10 +224,10 @@ public class YorkPirates extends ApplicationAdapter {
 		batchUi.setProjectionMatrix(camera2.combined);
 		//draw points
 		font.setColor(Color.WHITE);
-		font.draw(batchUi, score, camera2.viewportWidth - 50 -(score.length()*32), camera2.viewportHeight-80);
+		font.draw(batchUi, score.toString(), camera2.viewportWidth - 50 -(score.toString().length()*32), camera2.viewportHeight-80);
 		//draw gold
 		font.setColor(Color.GOLD);
-		font.draw(batchUi, gold, camera2.viewportWidth - 50 -(gold.length()*32), camera2.viewportHeight-30);
+		font.draw(batchUi, gold.toString(), camera2.viewportWidth - 50 -(gold.toString().length()*32), camera2.viewportHeight-30);
 		//draw health
 		batchUi.setColor(Color.BLACK);
 		batchUi.draw(blank, 0, 0, camera.viewportWidth, 12);
@@ -222,7 +256,7 @@ public class YorkPirates extends ApplicationAdapter {
 
 	/**
 	* Method that performs basic motion control for the player's boat and the camera.
-	* @speed Provides a speed at which the boat moves
+	* @param speed Provides a speed at which the boat moves
 	*/
 	protected void move(float speed){
 		if(Gdx.input.isKeyPressed(Keys.A)) {
