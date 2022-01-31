@@ -39,12 +39,12 @@ public class GameOver extends Stage{
     	stage = new Stage(uiViewport);
 		//controlScreen = new Controls(new Stage(uiViewport));
 		//float aspectRatio = (GAME_WORLD_HEIGHT / GAME_WORLD_WIDTH); ... maybe needed later
-    	skin = new Skin(Gdx.files.internal("skin.json"));
+    	skin = new Skin(Gdx.files.internal("uiskin.json"));
 
 		//table for UI background
 		Table background = new Table();
 		background.setFillParent(true);
-		background.setBackground(skin.getDrawable("default-pane"));
+		//background.setBackground(skin.getDrawable("default-pane"));
 		background.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 

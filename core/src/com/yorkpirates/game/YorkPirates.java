@@ -180,7 +180,7 @@ public class YorkPirates extends ApplicationAdapter {
 				gold += 100;
 				collegesToRemove.add(college);
 			}
-		colleges.removeAll(collegesToRemove);
+		//colleges.removeAll(collegesToRemove);
 		batch.setColor(Color.WHITE);
 		}
  		batch.end();

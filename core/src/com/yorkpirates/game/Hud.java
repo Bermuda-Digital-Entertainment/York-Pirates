@@ -19,6 +19,7 @@ public class Hud extends Stage{
     private Stage stage;
     private FitViewport uiViewport;
     private Skin skin;
+	private Skin bgSkin;
 	private Camera cameraHud;
 	public Boolean isStage;
 	//private Controls controlScreen;
@@ -34,7 +35,9 @@ public class Hud extends Stage{
     	stage = new Stage(uiViewport);
 		//controlScreen = new Controls(new Stage(uiViewport));
 		//float aspectRatio = (GAME_WORLD_HEIGHT / GAME_WORLD_WIDTH); ... maybe needed later
-    	skin = new Skin(Gdx.files.internal("skin.json"));
+		skin = new Skin(Gdx.files.internal("skin.json"));
+    	//skin = new Skin(Gdx.files.internal("uiskin.json"));
+		
 
 		//table for UI background
 		Table background = new Table();
