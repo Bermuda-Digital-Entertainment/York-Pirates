@@ -21,6 +21,7 @@ public class College extends Sprite {
   protected float firingRate = 3;
   public final int ID;
   public float lastShotTime=0;
+  public int markedDestroyed=0;
 
   public College(int collegeID) {
     this.ID=collegeID;
@@ -57,16 +58,13 @@ public class College extends Sprite {
   }
 
   public Boolean isDestroyed() {
-    if (health<=0)
-      return true;
-    else
-      return false;
+    return (health<=0);
   }
 
   public Boolean canFire(Float boatX, Float boatY){
     float distance;
     distance = (float)Math.sqrt(Math.pow(this.getX() - boatX.doubleValue(),2) + Math.pow(this.getY() - boatY.doubleValue(),2));
-    return (lastShotTime > firingRate && distance < projectileRange.doubleValue());
+    return (lastShotTime > firingRate && distance < projectileRange.doubleValue() && isDestroyed()==false);
   }
 
   public void resetFire(){

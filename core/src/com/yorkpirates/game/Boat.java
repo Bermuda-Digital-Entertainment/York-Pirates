@@ -18,7 +18,7 @@ public class Boat extends Sprite {
   public float health;
   public float maxHealth;
   public Integer level;
-  public float speed = 50;
+  public float speed = 50f;
   public float firingRate = 1f;
   public Float projectileDamage = 10f;
   public Float projectileSpeed;
