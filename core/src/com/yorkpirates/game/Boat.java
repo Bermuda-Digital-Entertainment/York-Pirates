@@ -21,11 +21,13 @@ public class Boat extends Sprite {
   public float speed = 50f;
   public float firingRate = 1f;
   public Float projectileDamage = 10f;
+  public Float projectileRange = 500f;
   public Float projectileSpeed;
   public Integer lastDirectionMoved; //0 is up, 1 is right, 2 is down, 3 is left
 	public float lastShotTime;
   public final int ID;
 
+  
   public Boat(int boatID){
     lastShotTime=6;
     health = 50f;
@@ -59,16 +61,16 @@ public class Boat extends Sprite {
     Bullet cannonBall;
     switch (lastDirectionMoved) {
       case 0:
-        cannonBall = new Bullet(0,50,500,this);
+        cannonBall = new Bullet(0,50,this);
         break;
       case 1:
-        cannonBall = new Bullet(50,0,500,this);
+        cannonBall = new Bullet(50,0,this);
         break;
       case 2:
-        cannonBall = new Bullet(0,-50,500,this);
+        cannonBall = new Bullet(0,-50,this);
         break;
       default:
-        cannonBall = new Bullet(-50,0,500,this);
+        cannonBall = new Bullet(-50,0,this);
         break;
     }
     resetFire();

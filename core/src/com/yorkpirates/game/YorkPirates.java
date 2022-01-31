@@ -47,6 +47,9 @@ public class YorkPirates extends ApplicationAdapter {
 	private GameOver gameOverScreen;
 	private int topID=7;
 
+	/**
+	* The initialisation method for the game. This creates most of the game objects (except bullets/cannon balls which are created during gameplay)
+	*/
 	@Override
 	public void create() {
 		//batch camera
@@ -116,6 +119,11 @@ public class YorkPirates extends ApplicationAdapter {
 	}
 
 
+	/**
+	* Method that resizes the cameras if the window is resized
+	* @param width The new width of the window
+	* @param height The new height of the window
+	*/
 	@Override
 	public void resize(int width, int height){
 
@@ -136,6 +144,10 @@ public class YorkPirates extends ApplicationAdapter {
 
 	}
 
+
+	/**
+	* Method that performs the majority of the live gameplay and calls most of the other parts of the code
+	*/
 	@Override
 	public void render () {
 		float delta;
@@ -243,7 +255,7 @@ public class YorkPirates extends ApplicationAdapter {
 
 	/**
 	* Method that performs basic motion control for the player's boat and the camera.
-	* @speed Provides a speed at which the boat moves
+	* @param speed Provides a speed at which the boat moves
 	*/
 	protected void move(float speed){
 		if(Gdx.input.isKeyPressed(Keys.A)) {
