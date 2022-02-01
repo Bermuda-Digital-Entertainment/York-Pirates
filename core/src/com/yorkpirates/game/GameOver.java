@@ -32,7 +32,7 @@ public class GameOver extends Stage{
 
 		final float GAME_WORLD_WIDTH = Gdx.graphics.getWidth();
 		final float GAME_WORLD_HEIGHT = Gdx.graphics.getHeight();
-		isStage = true;
+		isStage = false;
 		cameraHud = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		cameraHud.position.set(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, 0);
     	uiViewport = new FitViewport(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, cameraHud);

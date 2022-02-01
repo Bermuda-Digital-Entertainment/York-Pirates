@@ -27,6 +27,8 @@ public class Hud extends Stage{
     public Hud(Stage hud) {
 
 		final float GAME_WORLD_WIDTH = Gdx.graphics.getWidth();
+
+
 		final float GAME_WORLD_HEIGHT = Gdx.graphics.getHeight();
 		isStage = true;
 		cameraHud = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -61,7 +63,8 @@ public class Hud extends Stage{
 			public void clicked(InputEvent event, float x, float y) {
 				dispose();
 				isStage = false;
-				Gdx.graphics.setWindowedMode(Gdx.graphics.getWidth()-1, Gdx.graphics.getHeight()-1);
+				Gdx.graphics.setWindowedMode(Gdx.graphics.getWidth()-10, Gdx.graphics.getHeight()-10);
+				
 			}
 		});
     	Button HelpButton = new TextButton("Controls", skin);

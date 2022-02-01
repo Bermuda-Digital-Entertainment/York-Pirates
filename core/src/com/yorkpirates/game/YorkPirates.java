@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeType.Bitmap;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.XmlReader.Element;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.Gdx;
@@ -105,17 +106,17 @@ public class YorkPirates extends ApplicationAdapter {
 		ships.get(0);
 		ships.get(0).setPosition(300,250);
 		ships.get(0).setSize(20,48);
-		ships.get(0).texture = new Texture(Gdx.files.internal("pirate_ship_up.png"));
+		ships.get(0).texture = new Texture(Gdx.files.internal("derwent_ship.png"));
 
 		ships.get(1);
 		ships.get(1).setPosition(950,650);
 		ships.get(1).setSize(20,48);
-		ships.get(1).texture = new Texture(Gdx.files.internal("pirate_ship_up.png"));
+		ships.get(1).texture = new Texture(Gdx.files.internal("goodricke_ship.png"));
 
 		ships.get(2);
 		ships.get(2).setPosition(480,600);
 		ships.get(2).setSize(20,48);
-		ships.get(2).texture = new Texture(Gdx.files.internal("pirate_ship_up.png"));
+		ships.get(2).texture = new Texture(Gdx.files.internal("james_ship.png"));
 	}
 
 
@@ -135,7 +136,7 @@ public class YorkPirates extends ApplicationAdapter {
 		else if (gameOverScreen.isStage == true){
 			gameOverScreen.getStage().getViewport().update(width, height, true);
 		}
-		else{
+		else if (gameOverScreen.isStage == false && stage.isStage == false){
 			camera.setToOrtho(false, width, height);
 			camera2.setToOrtho(false, width, height);
 			camera.translate(player.getX()-(Gdx.graphics.getWidth()/2), player.getY()-(Gdx.graphics.getHeight()/2));
@@ -163,12 +164,25 @@ public class YorkPirates extends ApplicationAdapter {
 		for (Bullet bullet : bullets){
 			bullet.update(delta);
 			player.isHit(bullet);
+			try{
+				if (bullet.getFiringObject() instanceof Boat){
+					bullet.texture = new Texture(Gdx.files.internal("cannon_ball.png"));
+				}
+				else if (bullet.getFiringObjectC() instanceof College){
+					bullet.texture = new Texture(Gdx.files.internal("fire_ball.png"));
+				}
+			}
+			finally{}
+			
+		
+		
 			for (College college : colleges){
 				college.isHit(bullet);
 			}
 			if (bullet.remove)
 				bulletsToRemove.add(bullet);
 		}
+	
 		//remove bullets
 		bullets.removeAll(bulletsToRemove);
 
@@ -241,6 +255,7 @@ public class YorkPirates extends ApplicationAdapter {
 			gameOverScreen.getStage().act();
 			gameOverScreen.getStage().draw();
 			Gdx.input.setInputProcessor(gameOverScreen.getStage());
+			gameOverScreen.isStage = true;
 		}
 
 		batchUi.draw(blank, 0, 0, player.health()*camera.viewportWidth, 12);

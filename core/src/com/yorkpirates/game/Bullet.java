@@ -14,14 +14,16 @@ public class Bullet {
 	public float distance = 0;
 	public static final int WIDTH = 16;
 	public static final int HEIGHT = 16;
-	private static Texture texture;
+	public Texture texture;
 	public float xSpeed;
 	public float ySpeed;
 	public int firingObjectID;
 	public float x, y;
 	public Integer lastDirectionMoved = 0; //0 is up, 1 is right, 2 is down, 3 is left
-	public final float damage;
+	public float damage;
 	public boolean remove = false;
+	private Boat firingObject;
+	private College firingObjectC;
 
 	/**
 	* Constructor method for a Bullet object fired by a boat
@@ -36,6 +38,7 @@ public class Bullet {
 		this.xSpeed = xSpeed;
 		this.ySpeed = ySpeed;
 		this.range = firingObject.projectileRange;
+		this.firingObject = firingObject;
 		this.firingObjectID=firingObject.ID;
 		this.damage=firingObject.projectileDamage;
 		switch (firingObject.lastDirectionMoved){
@@ -57,7 +60,7 @@ public class Bullet {
 				break;
 		}
 
-		if (texture == null)
+		
 		texture = new Texture(Gdx.files.internal("cannon_ball.png"));
 
 	}
@@ -75,13 +78,14 @@ public class Bullet {
 		this.xSpeed = xSpeed;
 		this.ySpeed = ySpeed;
 		this.range = firingObject.projectileRange;
+		this.firingObjectC = firingObject;
 		this.firingObjectID=firingObject.ID;
 		this.damage=firingObject.projectileDamage;
 		this.x = firingObject.getX();
 		this.y = firingObject.getY();
 
-		if (texture == null)
-		texture = new Texture(Gdx.files.internal("cannon_ball.png"));
+		
+		texture = new Texture(Gdx.files.internal("fire_ball.png"));
 
 	}
 
@@ -106,4 +110,11 @@ public class Bullet {
 		batch.draw(texture, x, y, 16, 16);
 	}
 
+	
+	public Boat getFiringObject(){
+		return this.firingObject;
+	}
+	public College getFiringObjectC(){
+		return this.firingObjectC;
+	}
 }
