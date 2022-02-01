@@ -39,12 +39,12 @@ public class GameOver extends Stage{
     	stage = new Stage(uiViewport);
 		//controlScreen = new Controls(new Stage(uiViewport));
 		//float aspectRatio = (GAME_WORLD_HEIGHT / GAME_WORLD_WIDTH); ... maybe needed later
-    	skin = new Skin(Gdx.files.internal("uiskin.json"));
+    	skin = new Skin(Gdx.files.internal("skin.json"));
 
 		//table for UI background
 		Table background = new Table();
 		background.setFillParent(true);
-		//background.setBackground(skin.getDrawable("default-pane"));
+		background.setBackground(skin.getDrawable("default-pane"));
 		background.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 
@@ -60,6 +60,12 @@ public class GameOver extends Stage{
 		{
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				try {
+					Runtime.getRuntime().exec("java -desktop-1,0.jar");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				System.exit(0);
 			}
 		});

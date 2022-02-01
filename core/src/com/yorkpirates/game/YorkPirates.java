@@ -200,10 +200,14 @@ public class YorkPirates extends ApplicationAdapter {
 		for (Bullet bullet : bullets) {
 			bullet.render(batch);
 		}
-		if (player.lastDirectionMoved == 0 || player.lastDirectionMoved ==2)
+		if (player.lastDirectionMoved == 0 || player.lastDirectionMoved ==2){
  			batch.draw(player.getTexture(), player.getX(), player.getY(), 60, 144);
-		if (player.lastDirectionMoved == 1 || player.lastDirectionMoved ==3)
+			player.setSize(30, 144);
+		}
+		else if (player.lastDirectionMoved == 1 || player.lastDirectionMoved ==3){
  			batch.draw(player.getTexture(), player.getX(), player.getY(), 144, 60);
+			player.setSize(144, 30);
+		}
 		for (Integer x=0; x<colleges.size(); x++) {
 			 batch.draw(colleges.get(x).texture, colleges.get(x).getX(), colleges.get(x).getY());
 		}
