@@ -83,7 +83,7 @@ public class YorkPirates extends ApplicationAdapter {
 		//Creates the player's boat
 		player = new Boat(0);
 		player.setPosition(100,100);
-		player.setSize(60,144);
+		player.setSize(30,144);
 		player.lastDirectionMoved=3;
 		player.texture = new Texture(Gdx.files.internal("pirate_ship_up.png"));
 
@@ -196,7 +196,7 @@ public class YorkPirates extends ApplicationAdapter {
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
  		batch.begin();
-		batch.draw(waterBackground, -1000, -1000);
+		batch.draw(waterBackground, -1000, -1000, 5000, 5000);
 		for (Bullet bullet : bullets) {
 			bullet.render(batch);
 		}
