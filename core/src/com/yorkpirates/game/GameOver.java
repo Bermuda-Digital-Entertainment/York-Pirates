@@ -61,7 +61,7 @@ public class GameOver extends Stage{
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				try {
-					Runtime.getRuntime().exec("java -desktop-1,0.jar");
+					Runtime.getRuntime().exec("java -jar desktop-1.0.jar");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
