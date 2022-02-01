@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeType.Bitmap;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.XmlReader.Element;
@@ -46,6 +47,7 @@ public class YorkPirates extends ApplicationAdapter {
 	private Integer gold;
 	private Texture blank;
 	private GameOver gameOverScreen;
+	private Texture waterBackground;
 	private int topID=7;
 
 	/**
@@ -63,6 +65,10 @@ public class YorkPirates extends ApplicationAdapter {
 		ships = new ArrayList<Boat>();
 		bullets = new ArrayList<Bullet>();
 		batch = new SpriteBatch();
+		waterBackground = new Texture(Gdx.files.internal("water_background.png"));
+		waterBackground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+		TextureRegion waterBackgroundRegion = new TextureRegion(waterBackground);
+		waterBackgroundRegion.setRegion(0,0,waterBackground.getWidth()*5,waterBackgroundRegion.getRegionHeight()*5);
 		//overlay batch, font, score, gold and contructors
 		batchUi = new SpriteBatch();
 		font = new BitmapFont(Gdx.files.internal("score.fnt"));
@@ -77,7 +83,7 @@ public class YorkPirates extends ApplicationAdapter {
 		//Creates the player's boat
 		player = new Boat(0);
 		player.setPosition(100,100);
-		player.setSize(48,48);
+		player.setSize(60,144);
 		player.lastDirectionMoved=3;
 		player.texture = new Texture(Gdx.files.internal("pirate_ship_up.png"));
 
@@ -190,13 +196,14 @@ public class YorkPirates extends ApplicationAdapter {
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
  		batch.begin();
+		batch.draw(waterBackground, -1000, -1000);
 		for (Bullet bullet : bullets) {
 			bullet.render(batch);
 		}
 		if (player.lastDirectionMoved == 0 || player.lastDirectionMoved ==2)
- 			batch.draw(player.getTexture(), player.getX(), player.getY(), 37, 80);
+ 			batch.draw(player.getTexture(), player.getX(), player.getY(), 60, 144);
 		if (player.lastDirectionMoved == 1 || player.lastDirectionMoved ==3)
- 			batch.draw(player.getTexture(), player.getX(), player.getY(), 80, 37);
+ 			batch.draw(player.getTexture(), player.getX(), player.getY(), 144, 60);
 		for (Integer x=0; x<colleges.size(); x++) {
 			 batch.draw(colleges.get(x).texture, colleges.get(x).getX(), colleges.get(x).getY());
 		}
