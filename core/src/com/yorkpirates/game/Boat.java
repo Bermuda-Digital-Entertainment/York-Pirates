@@ -20,9 +20,9 @@ public class Boat extends Sprite {
   public Integer level;
   public float speed = 50f;
   public float firingRate = 1f;
-  public Float projectileDamage = 10f;
+  public Float projectileDamage = 15f;
   public Float projectileRange = 500f;
-  public Float projectileSpeed = 60f;
+  public Float projectileSpeed = 80f;
   public Integer lastDirectionMoved; //0 is up, 1 is right, 2 is down, 3 is left
 	public float lastShotTime;
   public final int ID;

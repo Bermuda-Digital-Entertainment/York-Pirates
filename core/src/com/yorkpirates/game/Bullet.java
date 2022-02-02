@@ -43,12 +43,12 @@ public class Bullet {
 		this.damage=firingObject.projectileDamage;
 		switch (firingObject.lastDirectionMoved){
 			case 0:
-				this.x = firingObject.getX()+10;
-				this.y = firingObject.getY()+75;
+				this.x = firingObject.getX()+20;
+				this.y = firingObject.getY()+140;
 				break;
 			case 1:
-				this.x = firingObject.getX()+75;
-				this.y = firingObject.getY()+10;
+				this.x = firingObject.getX()+140;
+				this.y = firingObject.getY()+20;
 				break;
 			case 2:
 				this.x = firingObject.getX()+10;
@@ -56,7 +56,7 @@ public class Bullet {
 				break;
 			default:
 				this.x = firingObject.getX();
-				this.y = firingObject.getY()+10;
+				this.y = firingObject.getY()+20;
 				break;
 		}
 

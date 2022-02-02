@@ -17,7 +17,7 @@ public class College extends Sprite {
   public float maxHealth=150;
   public Float projectileDamage = 15f;
   public Float projectileRange = 500f;
-  protected float projectileSpeed = 50;
+  protected float projectileSpeed = 80;
   protected float firingRate = 3;
   public final int ID;
   public float lastShotTime=0;

@@ -11,7 +11,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeType.Bitmap;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.XmlReader.Element;
 import com.badlogic.gdx.math.Rectangle;
@@ -159,6 +161,12 @@ public class YorkPirates extends ApplicationAdapter {
 	public void render () {
 		float delta;
 		delta = Gdx.graphics.getDeltaTime();
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("ObjectiveFont.ttf"));
+		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+		parameter.size = 26;
+		parameter.borderColor = Color.BLACK;
+		parameter.borderWidth = 3;
+		BitmapFont ObjectiveFont = generator.generateFont(parameter);
 		//Add time from last shot
 		player.addTime(delta);
 		//fire bullet
@@ -237,7 +245,7 @@ public class YorkPirates extends ApplicationAdapter {
 				score += 200;
 				gold += 100;
 				college.markedDestroyed=1;
-				college.texture = new Texture(Gdx.files.internal("cannon_ball.png"));//Placeholder image, please change
+				college.texture = new Texture(Gdx.files.internal("destroyed.png"));
 			}
 
 		batch.setColor(Color.WHITE);
@@ -256,6 +264,33 @@ public class YorkPirates extends ApplicationAdapter {
 		//draw health
 		batchUi.setColor(Color.BLACK);
 		batchUi.draw(blank, 0, 0, camera.viewportWidth, 12);
+		ObjectiveFont.draw(batchUi, "OBJECTIVES:", 5, camera.viewportHeight - 30);
+		parameter.size = 15;
+		ObjectiveFont = generator.generateFont(parameter);
+		if (colleges.get(0).isDestroyed()){
+			ObjectiveFont.setColor(Color.GREEN);
+			ObjectiveFont.draw(batchUi, "Destroy Derwent College: 1/1", 5, camera.viewportHeight - 60);
+		}
+		else {
+			ObjectiveFont.setColor(Color.RED);
+			ObjectiveFont.draw(batchUi, "Destroy Derwent College: 0/1", 5, camera.viewportHeight - 60);
+		}
+		if (colleges.get(1).isDestroyed()){
+			ObjectiveFont.setColor(Color.GREEN);
+			ObjectiveFont.draw(batchUi, "Destroy Goodricke College: 1/1", 5, camera.viewportHeight - 80);
+		}
+		else {
+			ObjectiveFont.setColor(Color.RED);
+			ObjectiveFont.draw(batchUi, "Destroy Goodricke College: 0/1", 5, camera.viewportHeight - 80);
+		}
+		if (colleges.get(2).isDestroyed()){
+			ObjectiveFont.setColor(Color.GREEN);
+			ObjectiveFont.draw(batchUi, "Destroy James College: 1/1", 5, camera.viewportHeight - 100);
+		}
+		else {
+			ObjectiveFont.setColor(Color.RED);
+			ObjectiveFont.draw(batchUi, "Destroy James College: 0/1", 5, camera.viewportHeight - 100);
+		}
 		if (player.health() > 0.6)
 			batchUi.setColor(Color.GREEN);
 		else if (player.health() > 0.3)
@@ -275,6 +310,7 @@ public class YorkPirates extends ApplicationAdapter {
 		//draw the hud - welcome screen
 		stage.getStage().act();
 		stage.getStage().draw();
+		generator.dispose();
 
 		move(50*delta);
 	}

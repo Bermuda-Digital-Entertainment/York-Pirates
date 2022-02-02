@@ -63,7 +63,7 @@ public class GameOver extends Stage{
 				try {
 					Runtime.getRuntime().exec("java -jar desktop-1.0.jar");
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+	
 					e.printStackTrace();
 				}
 				System.exit(0);
