@@ -12,14 +12,12 @@ import com.badlogic.gdx.math.Rectangle;
 * Boat Class. Implements a sprite with additional Properties for Health, boat Level, etc. It can be an AI boat or a player
 */
 public class Boat extends Sprite {
-  private Float x;
-  private Float y;
   public Texture texture;
   public float health;
   public float maxHealth;
   public Integer level;
   public float speed = 50f;
-  public float firingRate = 1f;
+  public float firingRate = 2f;
   public Float projectileDamage = 15f;
   public Float projectileRange = 500f;
   public Float projectileSpeed = 80f;
@@ -29,13 +27,13 @@ public class Boat extends Sprite {
 
 
   /**
-  * Constructor method for Boar. It simply gives the boat a unique ID
+  * Constructor method for Boat. It simply gives the boat a unique ID
   * @param boatID int Passes a unique ID to the boat (to prevent an object hitting itself with a cannon ball)
   */
   public Boat(int boatID){
     lastShotTime=6;
-    health = 50f;
-    maxHealth = 50f;
+    health = 100f;
+    maxHealth = 100f;
     this.ID=boatID;
   }
 
@@ -80,16 +78,16 @@ public class Boat extends Sprite {
     Bullet cannonBall;
     switch (lastDirectionMoved) {
       case 0:
-        cannonBall = new Bullet(0,50,this);
+        cannonBall = new Bullet(0,70,this);
         break;
       case 1:
-        cannonBall = new Bullet(50,0,this);
+        cannonBall = new Bullet(70,0,this);
         break;
       case 2:
-        cannonBall = new Bullet(0,-50,this);
+        cannonBall = new Bullet(0,-70,this);
         break;
       default:
-        cannonBall = new Bullet(-50,0,this);
+        cannonBall = new Bullet(-70,0,this);
         break;
     }
     resetFire();

@@ -35,6 +35,7 @@ public class College extends Sprite {
   * Fires a projectile at a boat at coordinates boatX, boatY.
   * @param boatX X coordinate of the boat
   * @param boatY Y coordinate of the boat
+  * @return the bullet to be fired
   */
   public Bullet fire(Float boatX, Float boatY) {
     Bullet cannonBall;
@@ -54,6 +55,7 @@ public class College extends Sprite {
   /**
   * Detects if the college has been hit by a particular projectile
   * @param collisionProjectile A pointer to the projectile that the college is checking
+  * @return whether the bullet hit a boat/player
   */
   public Boolean isHit(Bullet collisionProjectile) {
     Rectangle testRectangle = new Rectangle(collisionProjectile.x,collisionProjectile.y,16,16);

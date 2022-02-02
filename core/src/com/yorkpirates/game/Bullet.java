@@ -4,9 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import com.yorkpirates.game.Boat;
-import com.yorkpirates.game.College;
-
 public class Bullet {
 
 	public float speed;
@@ -33,7 +30,6 @@ public class Bullet {
 	* @param firingObject The object that is firing the bullet (saves parameters to do it this way)
 	*/
 	public Bullet (float xSpeed, float ySpeed, Boat firingObject) {
-		this.range = range;
 		this.speed = firingObject.getBulletSpeed();
 		this.xSpeed = xSpeed;
 		this.ySpeed = ySpeed;
@@ -44,14 +40,14 @@ public class Bullet {
 		switch (firingObject.lastDirectionMoved){
 			case 0:
 				this.x = firingObject.getX()+20;
-				this.y = firingObject.getY()+140;
+				this.y = firingObject.getY()+105;
 				break;
 			case 1:
-				this.x = firingObject.getX()+140;
+				this.x = firingObject.getX()+105;
 				this.y = firingObject.getY()+20;
 				break;
 			case 2:
-				this.x = firingObject.getX()+10;
+				this.x = firingObject.getX()+20;
 				this.y = firingObject.getY();
 				break;
 			default:
@@ -73,7 +69,6 @@ public class Bullet {
 	* @param firingObject The object that is firing the bullet (saves parameters to do it this way)
 	*/
 	public Bullet (float xSpeed, float ySpeed, College firingObject) {
-		this.range = range;
 		this.speed = firingObject.getBulletSpeed();
 		this.xSpeed = xSpeed;
 		this.ySpeed = ySpeed;
@@ -104,16 +99,23 @@ public class Bullet {
 
 	/**
 	*	Seb, please do this one
-	* @param batch
+	* @param batch The Spritebatch on which the bullet will be drawn on to.
 	*/
 	public void render (SpriteBatch batch) {
 		batch.draw(texture, x, y, 16, 16);
 	}
 
-	
+	/**
+	* Method to check if the Bullet has been fired by a Boat
+	* @return the object that fired the bullet
+	*/
 	public Boat getFiringObject(){
 		return this.firingObject;
 	}
+	/**
+	* Method to check if the Bullet has been fired by a College
+	* @return the object that fired the bullet
+	*/
 	public College getFiringObjectC(){
 		return this.firingObjectC;
 	}
