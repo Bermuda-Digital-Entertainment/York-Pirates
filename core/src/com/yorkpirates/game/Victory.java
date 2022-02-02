@@ -19,7 +19,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-public class GameOver extends Stage{
+public class Victory extends Stage{
 
     private Stage stage;
     private FitViewport uiViewport;
@@ -28,7 +28,7 @@ public class GameOver extends Stage{
 	public Boolean isStage;
 	//private Controls controlScreen;
 
-    public GameOver(Stage hud) {
+    public Victory(Stage hud) {
 
 		final float GAME_WORLD_WIDTH = Gdx.graphics.getWidth();
 		final float GAME_WORLD_HEIGHT = Gdx.graphics.getHeight();
@@ -37,8 +37,6 @@ public class GameOver extends Stage{
 		cameraHud.position.set(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, 0);
     	uiViewport = new FitViewport(GAME_WORLD_WIDTH/2, GAME_WORLD_HEIGHT/2, cameraHud);
     	stage = new Stage(uiViewport);
-		//controlScreen = new Controls(new Stage(uiViewport));
-		//float aspectRatio = (GAME_WORLD_HEIGHT / GAME_WORLD_WIDTH); ... maybe needed later
     	skin = new Skin(Gdx.files.internal("skin.json"));
 
 		//table for UI background
@@ -55,7 +53,7 @@ public class GameOver extends Stage{
 		table.align(Align.center|Align.top);
 		table.setPosition(uiViewport.getLeftGutterWidth(), uiViewport.getScreenHeight()/2);
 
-    	Button StartButton = new TextButton("Restart", skin);
+    	Button StartButton = new TextButton("Play Again", skin);
 		StartButton.addListener(new ClickListener()
 		{
 			@Override

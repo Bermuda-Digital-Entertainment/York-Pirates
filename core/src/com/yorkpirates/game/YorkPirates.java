@@ -49,6 +49,7 @@ public class YorkPirates extends ApplicationAdapter {
 	private Integer gold;
 	private Texture blank;
 	private GameOver gameOverScreen;
+	private Victory victoryScreen;
 	private Texture waterBackground;
 	private int topID=7;
 
@@ -80,6 +81,7 @@ public class YorkPirates extends ApplicationAdapter {
 		//ui call
 		stage = new Hud(new Stage());
 		gameOverScreen = new GameOver(new Stage());
+		victoryScreen = new Victory(new Stage());
 
 		Gdx.input.setInputProcessor(stage.getStage());
 		//Creates the player's boat
@@ -105,6 +107,7 @@ public class YorkPirates extends ApplicationAdapter {
 		colleges.get(2).setPosition(700,1500);
 		colleges.get(2).setSize(64,64);
 		colleges.get(2).texture = new Texture(Gdx.files.internal("james.png"));
+
 
 		//Creates some idle ships
 		ships.add(new Boat(4));
@@ -144,7 +147,10 @@ public class YorkPirates extends ApplicationAdapter {
 		else if (gameOverScreen.isStage == true){
 			gameOverScreen.getStage().getViewport().update(width, height, true);
 		}
-		else if (gameOverScreen.isStage == false && stage.isStage == false){
+		else if (victoryScreen.isStage == true){
+			victoryScreen.getStage().getViewport().update(width, height, true);
+		}
+		else if (gameOverScreen.isStage == false && stage.isStage == false  && victoryScreen.isStage == false){
 			camera.setToOrtho(false, width, height);
 			camera2.setToOrtho(false, width, height);
 			camera.translate(player.getX()-(Gdx.graphics.getWidth()/2), player.getY()-(Gdx.graphics.getHeight()/2));
@@ -291,6 +297,25 @@ public class YorkPirates extends ApplicationAdapter {
 			ObjectiveFont.setColor(Color.RED);
 			ObjectiveFont.draw(batchUi, "Destroy James College: 0/1", 5, camera.viewportHeight - 100);
 		}
+		if (colleges.get(0).isDestroyed() && colleges.get(1).isDestroyed() && colleges.get(2).isDestroyed() && colleges.size() == 3){
+			colleges.add(new Boss(4));
+			colleges.get(3).setPosition(500, 800);
+			colleges.get(3).setSize(64,64);
+			colleges.get(3).texture = new Texture(Gdx.files.internal("boss.png"));
+		}
+		else if (colleges.get(0).isDestroyed() && colleges.get(1).isDestroyed() && colleges.get(2).isDestroyed() && colleges.size() == 4){
+			if (colleges.get(3).isDestroyed()){
+				victoryScreen.getStage().act();
+				victoryScreen.getStage().draw();
+				Gdx.input.setInputProcessor(victoryScreen.getStage());
+				victoryScreen.isStage = true;
+			}
+			else {
+				ObjectiveFont.setColor(Color.RED);
+				ObjectiveFont.draw(batchUi, "Destroy the BOSS College", 5, camera.viewportHeight - 120);
+			}
+		}
+			
 		if (player.health() > 0.6)
 			batchUi.setColor(Color.GREEN);
 		else if (player.health() > 0.3)
