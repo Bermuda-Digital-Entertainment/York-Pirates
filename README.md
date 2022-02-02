@@ -11,7 +11,7 @@ The project is organised in the way described by the libGDX documentation in ord
 - YorkPirates - Main game Class
 - College - A class that inherits graphics.g2d.Sprite with College specific code
 - Boat -  A class that inherits graphics.g2d.Sprite with boat specific code
-- Projectile - A class that inherits graphics.g2d.Sprite with weapon specific code
+- Bullet - A class that implements the methods required to create weapons fire
 
 ## Testing and building
 Set directory to the York-Pirates root directory and run:
